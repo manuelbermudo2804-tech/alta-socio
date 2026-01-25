@@ -8,12 +8,9 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-  body {
-    background-image:
-      linear-gradient(rgba(15,23,42,0.55), rgba(15,23,42,0.55)),
-      url("fondo.jpg");
-
+  <style>
+    body {
+      background-image: url("fondo.jpg");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -23,55 +20,63 @@
 
 <body class="min-h-screen flex items-center justify-center p-4">
 
-  <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
+  <!-- CONTENEDOR SOBRE LA IMAGEN -->
+  <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md
+              bg-white/80 overflow-hidden">
 
     <!-- CABECERA -->
-    <div class="bg-gradient-to-r from-orange-600 to-red-600 p-6 text-center text-white">
+    <div class="text-center p-6">
 
       <img
         src="escudo.png"
         alt="Escudo CD Bustarviejo"
-        class="mx-auto w-24 h-auto mb-3"
+        class="w-24 mx-auto mb-3"
       />
 
-      <h1 class="text-3xl font-extrabold">HAZTE SOCIO</h1>
-      <p class="text-orange-100 text-sm mt-1">Club Deportivo Bustarviejo</p>
+      <h1 class="text-3xl font-extrabold text-gray-800">
+        HAZTE SOCIO
+      </h1>
 
-      <div class="mt-4 inline-block bg-white/20 px-4 py-1 rounded-full text-sm font-bold">
+      <p class="text-gray-600 text-sm mt-1">
+        Club Deportivo Bustarviejo
+      </p>
+
+      <div class="mt-4 inline-block bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
         Cuota anual: 25 €
       </div>
     </div>
 
     <!-- FORMULARIO -->
-    <div class="p-6">
+    <div class="px-6 pb-6">
       <form id="form" class="space-y-4">
 
         <input name="nombre_completo" required placeholder="Nombre completo"
-          class="w-full bg-slate-100 rounded-xl p-3 outline-none" />
+          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
 
         <div class="grid grid-cols-2 gap-3">
           <input name="dni" required placeholder="DNI"
-            class="bg-slate-100 rounded-xl p-3 outline-none" />
+            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
           <input name="telefono" required placeholder="Teléfono"
-            class="bg-slate-100 rounded-xl p-3 outline-none" />
+            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
         </div>
 
         <input name="email" type="email" required placeholder="Email"
-          class="w-full bg-slate-100 rounded-xl p-3 outline-none" />
+          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
 
         <input name="direccion" placeholder="Dirección"
-          class="w-full bg-slate-100 rounded-xl p-3 outline-none" />
+          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
 
         <div class="grid grid-cols-2 gap-3">
           <input name="municipio" placeholder="Municipio"
-            class="bg-slate-100 rounded-xl p-3 outline-none" />
+            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
           <input name="fecha_nacimiento" type="date"
-            class="bg-slate-100 rounded-xl p-3 outline-none" />
+            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
         </div>
 
         <button
           type="submit"
-          class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
+          class="w-full bg-black text-white py-4 rounded-xl font-bold
+                 hover:bg-gray-800 transition mt-4">
           CONTINUAR AL PAGO
         </button>
 
@@ -79,31 +84,16 @@
     </div>
   </div>
 
+  <!-- SCRIPT STRIPE -->
   <script>
-    const API_URL = "https://mtljwenjgmdveucvgird.supabase.co/functions/v1/alta-socio";
     const STRIPE_LINK = "https://buy.stripe.com/test_28E6oH3Ys3yBaKEdGrfrW00";
 
-    document.getElementById("form").addEventListener("submit", async (e) => {
+    document.getElementById("form").addEventListener("submit", (e) => {
       e.preventDefault();
+      const email = e.target.email.value;
 
-      const data = Object.fromEntries(new FormData(e.target));
-
-      try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-
-        if (res.ok) {
-          window.location.href =
-            STRIPE_LINK + "?prefilled_email=" + encodeURIComponent(data.email);
-        } else {
-          alert("Error al enviar los datos");
-        }
-      } catch (err) {
-        alert("Error de conexión");
-      }
+      window.location.href =
+        STRIPE_LINK + "?prefilled_email=" + encodeURIComponent(email);
     });
   </script>
 
