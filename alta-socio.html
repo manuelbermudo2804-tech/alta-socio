@@ -3,102 +3,83 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Hazte socio · CD Bustarviejo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hazte socio · CD Bustarviejo</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     body {
-      background-image: url("fondo.jpg");
+      background-image:
+        linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
+        url("fondo.jpg");
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
     }
   </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center relative">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-  <!-- Capa oscura -->
-  <div class="absolute inset-0 bg-black/60"></div>
+  <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-  <!-- Tarjeta -->
-  <div class="relative z-10 w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
-
-    <!-- Cabecera -->
+    <!-- CABECERA -->
     <div class="bg-gradient-to-r from-orange-600 to-red-600 p-6 text-center text-white">
-      <img src="escudo.png" alt="CD Bustarviejo"
-           class="w-24 mx-auto mb-3 drop-shadow-lg" />
 
-      <h1 class="text-3xl font-black">HAZTE SOCIO</h1>
-      <p class="opacity-90 text-sm mt-1">Club Deportivo Bustarviejo</p>
+      <img
+        src="escudo.png"
+        alt="Escudo CD Bustarviejo"
+        class="mx-auto w-24 h-auto mb-3"
+      />
 
-      <div class="mt-3 inline-block bg-white/20 px-4 py-1 rounded-full">
-        <strong>Cuota anual: 25 €</strong>
+      <h1 class="text-3xl font-extrabold">HAZTE SOCIO</h1>
+      <p class="text-orange-100 text-sm mt-1">Club Deportivo Bustarviejo</p>
+
+      <div class="mt-4 inline-block bg-white/20 px-4 py-1 rounded-full text-sm font-bold">
+        Cuota anual: 25 €
       </div>
     </div>
 
-    <!-- Formulario -->
+    <!-- FORMULARIO -->
     <div class="p-6">
       <form id="form" class="space-y-4">
 
-        <div>
-          <label class="text-xs font-bold text-gray-500">NOMBRE COMPLETO *</label>
-          <input name="nombre_completo" required
-                 class="w-full bg-gray-100 rounded-xl p-3 mt-1" />
-        </div>
+        <input name="nombre_completo" required placeholder="Nombre completo"
+          class="w-full bg-slate-100 rounded-xl p-3 outline-none" />
 
         <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="text-xs font-bold text-gray-500">DNI *</label>
-            <input name="dni" required
-                   class="w-full bg-gray-100 rounded-xl p-3 mt-1" />
-          </div>
-
-          <div>
-            <label class="text-xs font-bold text-gray-500">TELÉFONO *</label>
-            <input name="telefono" required
-                   class="w-full bg-gray-100 rounded-xl p-3 mt-1" />
-          </div>
+          <input name="dni" required placeholder="DNI"
+            class="bg-slate-100 rounded-xl p-3 outline-none" />
+          <input name="telefono" required placeholder="Teléfono"
+            class="bg-slate-100 rounded-xl p-3 outline-none" />
         </div>
 
-        <div>
-          <label class="text-xs font-bold text-gray-500">EMAIL *</label>
-          <input type="email" name="email" required
-                 class="w-full bg-gray-100 rounded-xl p-3 mt-1" />
-        </div>
+        <input name="email" type="email" required placeholder="Email"
+          class="w-full bg-slate-100 rounded-xl p-3 outline-none" />
 
-        <div>
-          <label class="text-xs font-bold text-gray-500">DIRECCIÓN</label>
-          <input name="direccion"
-                 class="w-full bg-gray-100 rounded-xl p-3 mt-1" />
-        </div>
+        <input name="direccion" placeholder="Dirección"
+          class="w-full bg-slate-100 rounded-xl p-3 outline-none" />
 
         <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="text-xs font-bold text-gray-500">MUNICIPIO</label>
-            <input name="municipio"
-                   class="w-full bg-gray-100 rounded-xl p-3 mt-1" />
-          </div>
-
-          <div>
-            <label class="text-xs font-bold text-gray-500">NACIMIENTO</label>
-            <input type="date" name="fecha_nacimiento"
-                   class="w-full bg-gray-100 rounded-xl p-3 mt-1" />
-          </div>
+          <input name="municipio" placeholder="Municipio"
+            class="bg-slate-100 rounded-xl p-3 outline-none" />
+          <input name="fecha_nacimiento" type="date"
+            class="bg-slate-100 rounded-xl p-3 outline-none" />
         </div>
 
-        <button type="submit"
-          class="w-full bg-black text-white font-bold py-4 rounded-xl mt-6 hover:bg-gray-800 transition">
+        <button
+          type="submit"
+          class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
           CONTINUAR AL PAGO
         </button>
+
       </form>
     </div>
   </div>
 
-  <!-- Script -->
   <script>
-    const API_URL = "https://mtljwenjgmddevucvgird.supabase.co/functions/v1/alta-socio";
+    const API_URL = "https://mtljwenjgmdveucvgird.supabase.co/functions/v1/alta-socio";
     const STRIPE_LINK = "https://buy.stripe.com/test_28E6oH3Ys3yBaKEdGrfrW00";
 
     document.getElementById("form").addEventListener("submit", async (e) => {
@@ -117,7 +98,7 @@
           window.location.href =
             STRIPE_LINK + "?prefilled_email=" + encodeURIComponent(data.email);
         } else {
-          alert("Error al guardar los datos");
+          alert("Error al enviar los datos");
         }
       } catch (err) {
         alert("Error de conexión");
