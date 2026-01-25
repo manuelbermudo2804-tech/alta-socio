@@ -20,18 +20,15 @@
 
 <body class="min-h-screen flex items-center justify-center p-4">
 
-  <!-- CONTENEDOR SOBRE LA IMAGEN -->
+  <!-- CONTENEDOR PRINCIPAL -->
   <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md
-              bg-white/5 overflow-hidden">
+              bg-white/50 overflow-hidden">
 
     <!-- CABECERA -->
     <div class="text-center p-6">
 
-      <img
-        src="escudo.png"
-        alt="Escudo CD Bustarviejo"
-        class="w-24 mx-auto mb-3"
-      />
+      <img src="escudo.png" alt="Escudo CD Bustarviejo"
+           class="w-24 mx-auto mb-3" />
 
       <h1 class="text-3xl font-extrabold text-gray-800">
         HAZTE SOCIO
@@ -73,6 +70,17 @@
             class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
         </div>
 
+        <!-- RGPD -->
+        <div class="flex items-start gap-2 text-sm text-gray-700">
+          <input type="checkbox" id="rgpd" required class="mt-1">
+          <label for="rgpd">
+            He leído y acepto la
+            <span class="font-semibold">política de protección de datos</span>.
+            Los datos se utilizarán únicamente para la gestión de socios del
+            Club Deportivo Bustarviejo.
+          </label>
+        </div>
+
         <button
           type="submit"
           class="w-full bg-black text-white py-4 rounded-xl font-bold
@@ -84,7 +92,7 @@
     </div>
   </div>
 
-  <!-- SCRIPT STRIPE -->
+  <!-- STRIPE -->
   <script>
     const STRIPE_LINK = "https://buy.stripe.com/test_28E6oH3Ys3yBaKEdGrfrW00";
 
