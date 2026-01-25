@@ -94,16 +94,32 @@
 
   <!-- STRIPE -->
   <script>
-    const STRIPE_LINK = "https://buy.stripe.com/test_28E6oH3Ys3yBaKEdGrfrW00";
+  const STRIPE_LINK = "https://buy.stripe.com/test_28E6oH3Ys3yBaKEdGrfrW00";
 
-    document.getElementById("form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = e.target.email.value;
+  document.getElementById("form").addEventListener("submit", (e) => {
+    e.preventDefault();
 
-      window.location.href =
-        STRIPE_LINK + "?prefilled_email=" + encodeURIComponent(email);
-    });
-  </script>
+    const formData = new FormData(e.target);
+
+    const params = new URLSearchParams();
+
+    // Email pre-rellenado en Stripe
+    params.append("prefilled_email", formData.get("email"));
+
+    // Metadata para Stripe (MUY IMPORTANTE)
+    params.append("metadata[nombre_completo]", formData.get("nombre_completo"));
+    params.append("metadata[dni]", formData.get("dni"));
+    params.append("metadata[telefono]", formData.get("telefono"));
+    params.append("metadata[email]", formData.get("email"));
+    params.append("metadata[direccion]", formData.get("direccion") || "");
+    params.append("metadata[municipio]", formData.get("municipio") || "");
+    params.append("metadata[fecha_nacimiento]", formData.get("fecha_nacimiento") || "");
+
+    // Redirección a Stripe con todos los datos
+    window.location.href = STRIPE_LINK + "?" + params.toString();
+  });
+</script>
+
 
 </body>
 </html>
