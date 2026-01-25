@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hazte socio - CD Bustarviejo</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-900 to-slate-800 min-h-screen flex items-center justify-center p-4">
+
+<div class="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+  <div class="bg-gradient-to-r from-orange-600 to-red-600 p-8 text-center text-white">
+    <h1 class="text-3xl font-black mb-1">HAZTE SOCIO</h1>
+    <p class="text-orange-100 text-sm">CD Bustarviejo</p>
+    <div class="mt-4 bg-white/20 px-4 py-1 rounded-full">
+      <strong>Cuota anual: 25 €</strong>
+    </div>
+  </div>
+
+  <div class="p-8">
+    <form id="form" class="space-y-4">
+
+      <input name="nombre_completo" required placeholder="Nombre completo"
+        class="w-full bg-gray-50 border rounded-xl p-3"/>
+
+      <div class="grid grid-cols-2 gap-3">
+        <input name="dni" required placeholder="DNI"
+          class="w-full bg-gray-50 border rounded-xl p-3"/>
+        <input name="telefono" required placeholder="Teléfono"
+          class="w-full bg-gray-50 border rounded-xl p-3"/>
+      </div>
+
+      <input name="email" type="email" required placeholder="Email"
+        class="w-full bg-gray-50 border rounded-xl p-3"/>
+
+      <input name="direccion" placeholder="Dirección"
+        class="w-full bg-gray-50 border rounded-xl p-3"/>
+
+      <div class="grid grid-cols-2 gap-3">
+        <input name="municipio" placeholder="Municipio"
+          class="w-full bg-gray-50 border rounded-xl p-3"/>
+        <input name="fecha_nacimiento" type="date"
+          class="w-full bg-gray-50 border rounded-xl p-3"/>
+      </div>
+
+      <button class="w-full bg-black text-white font-bold py-4 rounded-xl">
+        CONTINUAR AL PAGO
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://mtjwenjgmdevucvgird.supabase.co/functions/v1/alta-socio";
+
+const STRIPE_LINK = "https://buy.stripe.com/test_28E6oH3Ys3yBaKEdGrfrW00";
+
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target));
+
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  if (res.ok) {
+    window.location.href = STRIPE_LINK + "?prefilled_email=" + encodeURIComponent(data.email);
+  } else {
+    alert("Error al guardar los datos");
+  }
+});
+</script>
+
+</body>
+</html>
