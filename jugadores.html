@@ -19,7 +19,8 @@
 
 <body class="min-h-screen flex items-center justify-center p-4">
 
-  <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/60 overflow-hidden">
+  <!-- Contenedor con menos opacidad -->
+  <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-sm bg-white/40 overflow-hidden">
 
     <!-- CABECERA -->
     <div class="text-center p-6">
@@ -30,50 +31,31 @@
         ¿Quieres jugar con nosotros?
       </h1>
 
-      <p class="text-gray-600 text-sm mt-2">
-        Déjanos tus datos y nos pondremos en contacto contigo.
+      <p class="text-gray-700 text-sm mt-2">
+        Forma parte del Club Deportivo Bustarviejo.
       </p>
     </div>
 
-    <!-- HISTORIA DEL CLUB -->
-    <div class="px-6 text-sm text-gray-700 space-y-3">
-      <h2 class="font-bold text-gray-800">
-        Sobre el Club Deportivo Bustarviejo
-      </h2>
-
+    <!-- TEXTO CORTO -->
+    <div class="px-6 text-sm text-gray-700 space-y-2">
       <p>
-        El Club Deportivo Bustarviejo nació en 1989 con una idea clara:
-        fomentar el aprendizaje y el crecimiento personal a través del deporte
-        en nuestro municipio, Bustarviejo, un pequeño pueblo de la Sierra de Madrid.
+        El CD Bustarviejo nació en 1989 con el objetivo de fomentar el deporte
+        y los valores en nuestro municipio.
+      </p>
+      <p>
+        Apostamos por un club cercano, familiar y en constante crecimiento,
+        con secciones de <strong>fútbol, fútbol femenino, baloncesto y pádel</strong>.
       </p>
 
-      <p>
-        Más de tres décadas después, el club mantiene la misma filosofía:
-        hacer del deporte —ya sea fútbol, baloncesto, pádel o cualquier otra disciplina—
-        una actividad integradora, educativa y basada en valores como el respeto,
-        el compañerismo y el esfuerzo.
-      </p>
-
-      <p>
-        Nuestro objetivo no es solo formar deportistas, sino <strong>formar personas</strong>,
-        apoyándonos en el ejemplo de los más mayores y en la implicación de las familias,
-        que son una parte fundamental del club.
-      </p>
-
-      <p>
-        Si te apetece conocernos, probar en alguna de nuestras categorías o formar parte
-        de este proyecto deportivo y humano, estaremos encantados de recibirte.
-      </p>
-
-      <!-- REDES SOCIALES -->
-      <div class="pt-2 text-xs text-gray-600">
-        <p class="font-semibold mb-1">Conócenos también en:</p>
-        <ul class="space-y-1">
-          <li>🌍 <a href="https://www.cdbustarviejo.com" target="_blank" class="underline">Web oficial</a></li>
-          <li>📸 <a href="https://www.instagram.com/cdbustarviejo/" target="_blank" class="underline">Instagram</a></li>
-          <li>👍 <a href="https://www.facebook.com/cdbustarviejo/" target="_blank" class="underline">Facebook</a></li>
-          <li>🐦 <a href="https://x.com/CDBustarviejo" target="_blank" class="underline">X (Twitter)</a></li>
-        </ul>
+      <!-- REDES -->
+      <div class="pt-2 text-sm text-gray-800">
+        <p class="font-semibold mb-1">Síguenos:</p>
+        <div class="flex gap-3">
+          <a href="https://www.cdbustarviejo.com" target="_blank">🌍</a>
+          <a href="https://www.instagram.com/cdbustarviejo/" target="_blank">📸</a>
+          <a href="https://www.facebook.com/cdbustarviejo/" target="_blank">👍</a>
+          <a href="https://x.com/CDBustarviejo" target="_blank">🐦</a>
+        </div>
       </div>
     </div>
 
@@ -84,87 +66,19 @@
         method="POST"
         class="space-y-4">
 
-        <input
-          type="text"
-          name="nombre"
-          required
+        <!-- Redirección tras enviar -->
+        <input type="hidden" name="_redirect" value="https://alta-socio.vercel.app/gracias.html">
+
+        <input type="text" name="nombre" required
           placeholder="Nombre y apellidos"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
 
-        <input
-          type="number"
-          name="edad"
-          required
+        <input type="number" name="edad" required
           placeholder="Edad"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
 
-        <input
-          type="tel"
-          name="telefono"
-          required
+        <input type="tel" name="telefono" required
           placeholder="Teléfono"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
 
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="Email"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
-
-        <select
-          name="deporte"
-          required
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none text-gray-700">
-          <option value="">Deporte de interés</option>
-          <option>Fútbol</option>
-          <option>Fútbol femenino</option>
-          <option>Baloncesto</option>
-          <option>Pádel (próximamente)</option>
-        </select>
-
-        <select
-          name="categoria"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none text-gray-700">
-          <option value="">Categoría aproximada</option>
-          <option>Escuela / Infantil</option>
-          <option>Cadete</option>
-          <option>Juvenil</option>
-          <option>Senior</option>
-          <option>No lo sé</option>
-        </select>
-
-        <input
-          type="text"
-          name="posicion"
-          placeholder="Posición (opcional)"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
-
-        <textarea
-          name="mensaje"
-          rows="3"
-          placeholder="Cuéntanos algo más (opcional)"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none"></textarea>
-
-        <!-- RGPD -->
-        <div class="flex items-start gap-2 text-sm text-gray-700">
-          <input type="checkbox" required class="mt-1">
-          <label>
-            Acepto que mis datos se utilicen únicamente para que el
-            Club Deportivo Bustarviejo se ponga en contacto conmigo.
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
-          ENVIAR
-        </button>
-
-      </form>
-    </div>
-
-  </div>
-
-</body>
-</html>
+        <input ty
