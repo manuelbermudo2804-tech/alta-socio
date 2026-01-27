@@ -81,4 +81,52 @@
           placeholder="Teléfono"
           class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
 
-        <input ty
+        <input type="email" name="email" required
+          placeholder="Email"
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+
+        <select name="deporte" required
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+          <option value="">Deporte de interés</option>
+          <option>Fútbol</option>
+          <option>Fútbol femenino</option>
+          <option>Baloncesto</option>
+          <option>Pádel</option>
+        </select>
+
+        <select name="categoria"
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+          <option value="">Categoría aproximada</option>
+          <option>Escuela / Infantil</option>
+          <option>Cadete</option>
+          <option>Juvenil</option>
+          <option>Senior</option>
+          <option>No lo sé</option>
+        </select>
+
+        <textarea name="mensaje" rows="3"
+          placeholder="Cuéntanos algo más (opcional)"
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300"></textarea>
+
+        <!-- RGPD -->
+        <div class="flex items-start gap-2 text-xs text-gray-700">
+          <input type="checkbox" required class="mt-1">
+          <label>
+            Acepto que mis datos se utilicen únicamente para que el
+            CD Bustarviejo se ponga en contacto conmigo.
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
+          ENVIAR
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
+</body>
+</html>
