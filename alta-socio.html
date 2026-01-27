@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,8 +20,7 @@
 <body class="min-h-screen flex items-center justify-center p-4">
 
   <!-- CONTENEDOR PRINCIPAL -->
-  <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md
-              bg-white/50 overflow-hidden">
+  <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/60 overflow-hidden">
 
     <!-- CABECERA -->
     <div class="text-center p-6">
@@ -43,8 +41,61 @@
       </div>
     </div>
 
+    <!-- TEXTO DE CONFIANZA -->
+    <div class="px-6 text-sm text-gray-800 space-y-4">
+
+      <p>
+        <strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong>
+      </p>
+
+      <p>
+        Aquí entrenan y compiten niñas, niños, jóvenes y adultos en un entorno donde el respeto,
+        la igualdad y el compromiso están por delante del resultado.
+      </p>
+
+      <p>
+        Tu apoyo nos permite seguir creciendo, impulsar el <strong>deporte femenino</strong>,
+        crear nuevas iniciativas y construir un club abierto, integrador y con futuro.
+      </p>
+
+      <div class="pt-2">
+        <h2 class="font-bold mb-2">¿Por qué hacerte socio?</h2>
+        <ul class="space-y-1">
+          <li>💛 Apoyas directamente el deporte local</li>
+          <li>⚽ El deporte femenino es una prioridad real en nuestro proyecto</li>
+          <li>🤝 Formas parte de un club abierto, familiar e integrador</li>
+          <li>🌱 Apostamos por crecer con seriedad y planes de futuro</li>
+        </ul>
+      </div>
+
+      <div class="pt-2">
+        <h2 class="font-bold mb-2">Gestión transparente</h2>
+        <p>
+          El CD Bustarviejo es un club sin ánimo de lucro.
+          <strong>Cada euro recaudado se destina íntegramente al club</strong>:
+          material, instalaciones, formación y desarrollo deportivo.
+        </p>
+        <p class="mt-1">
+          Aquí no hay beneficios personales, solo compromiso y ganas de hacer las cosas bien.
+        </p>
+      </div>
+
+      <div class="pt-2">
+        <h2 class="font-bold mb-2">Pago seguro</h2>
+        <p>
+          El pago se realiza a través de <strong>Stripe</strong>, una plataforma de pago segura
+          y reconocida a nivel internacional.
+        </p>
+      </div>
+
+      <p class="pt-2 font-semibold">
+        Gracias por confiar en el CD Bustarviejo.
+      </p>
+
+    </div>
+
     <!-- FORMULARIO -->
-    <div class="px-6 pb-6">
+    <div class="px-6 pb-6 pt-4">
       <form id="form" class="space-y-4">
 
         <input name="nombre_completo" required placeholder="Nombre completo"
@@ -74,8 +125,7 @@
         <div class="flex items-start gap-2 text-sm text-gray-700">
           <input type="checkbox" id="rgpd" required class="mt-1">
           <label for="rgpd">
-            He leído y acepto la
-            <span class="font-semibold">política de protección de datos</span>.
+            He leído y acepto la política de protección de datos.
             Los datos se utilizarán únicamente para la gestión de socios del
             Club Deportivo Bustarviejo.
           </label>
@@ -89,37 +139,38 @@
         </button>
 
       </form>
+
+      <p class="text-xs text-center text-gray-600 mt-4">
+        ¿Tienes alguna duda? Escríbenos a
+        <strong>cdbustarviejo@outlook.es</strong>
+      </p>
+
     </div>
   </div>
 
   <!-- STRIPE -->
   <script>
-  const STRIPE_LINK = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
+    const STRIPE_LINK = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
 
-  document.getElementById("form").addEventListener("submit", (e) => {
-    e.preventDefault();
+    document.getElementById("form").addEventListener("submit", (e) => {
+      e.preventDefault();
 
-    const formData = new FormData(e.target);
+      const formData = new FormData(e.target);
+      const params = new URLSearchParams();
 
-    const params = new URLSearchParams();
+      params.append("prefilled_email", formData.get("email"));
 
-    // Email pre-rellenado en Stripe
-    params.append("prefilled_email", formData.get("email"));
+      params.append("metadata[nombre_completo]", formData.get("nombre_completo"));
+      params.append("metadata[dni]", formData.get("dni"));
+      params.append("metadata[telefono]", formData.get("telefono"));
+      params.append("metadata[email]", formData.get("email"));
+      params.append("metadata[direccion]", formData.get("direccion") || "");
+      params.append("metadata[municipio]", formData.get("municipio") || "");
+      params.append("metadata[fecha_nacimiento]", formData.get("fecha_nacimiento") || "");
 
-    // Metadata para Stripe (MUY IMPORTANTE)
-    params.append("metadata[nombre_completo]", formData.get("nombre_completo"));
-    params.append("metadata[dni]", formData.get("dni"));
-    params.append("metadata[telefono]", formData.get("telefono"));
-    params.append("metadata[email]", formData.get("email"));
-    params.append("metadata[direccion]", formData.get("direccion") || "");
-    params.append("metadata[municipio]", formData.get("municipio") || "");
-    params.append("metadata[fecha_nacimiento]", formData.get("fecha_nacimiento") || "");
-
-    // Redirección a Stripe con todos los datos
-    window.location.href = STRIPE_LINK + "?" + params.toString();
-  });
-</script>
-
+      window.location.href = STRIPE_LINK + "?" + params.toString();
+    });
+  </script>
 
 </body>
 </html>
