@@ -19,7 +19,6 @@
 
 <body class="min-h-screen flex items-center justify-center p-4">
 
-  <!-- Contenedor con menos opacidad -->
   <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-sm bg-white/40 overflow-hidden">
 
     <!-- CABECERA -->
@@ -27,49 +26,52 @@
       <img src="escudo.png" alt="Escudo CD Bustarviejo"
            class="w-24 mx-auto mb-3">
 
-      <h1 class="text-2xl font-extrabold text-gray-800">
+      <h1 class="text-2xl font-extrabold text-gray-900">
         ¿Quieres jugar con nosotros?
       </h1>
 
-      <p class="text-gray-800 text-sm mt-2">
+      <p class="text-black/90 text-sm mt-2">
         Forma parte del Club Deportivo Bustarviejo.
       </p>
     </div>
 
-    <!-- TEXTO CORTO -->
-    <div class="px-6 text-sm text-gray-800 space-y-2">
+    <!-- TEXTO BREVE -->
+    <div class="px-6 text-sm text-black/90 space-y-2">
       <p>
         El CD Bustarviejo nació en 1989 con el objetivo de fomentar el deporte
         y los valores en nuestro municipio.
       </p>
       <p>
-        Apostamos por un club cercano, familiar y en constante crecimiento,
-        con secciones de <strong>fútbol, fútbol femenino, baloncesto y pádel</strong>.
+        Contamos con secciones de <strong>fútbol, fútbol femenino,
+        baloncesto y pádel</strong>, dentro de un club cercano y familiar.
       </p>
 
       <!-- REDES -->
-      <div class="pt-2 text-sm text-gray-800">
+      <div class="pt-2 text-sm text-gray-900">
         <p class="font-semibold mb-1">Síguenos:</p>
-        <div class="flex gap-3">
-          <a href="https://www.cdbustarviejo.com" target="_blank">🌍</a>
-          <a href="https://www.instagram.com/cdbustarviejo/" target="_blank">📸</a>
-          <a href="https://www.facebook.com/cdbustarviejo/" target="_blank">👍</a>
-          <a href="https://x.com/CDBustarviejo" target="_blank">🐦</a>
+        <div class="flex gap-3 text-xl">
+          <a href="https://www.cdbustarviejo.com" target="_blank" title="Web">🌍</a>
+          <a href="https://www.instagram.com/cdbustarviejo/" target="_blank" title="Instagram">📸</a>
+          <a href="https://www.facebook.com/cdbustarviejo/" target="_blank" title="Facebook">👍</a>
+          <a href="https://x.com/CDBustarviejo" target="_blank" title="X">🐦</a>
         </div>
       </div>
     </div>
 
     <!-- FORMULARIO -->
     <div class="px-6 pb-6 mt-4">
+
+      <!-- AVISO FÚTBOL FEMENINO -->
+      <p class="text-sm text-black/90 mb-4">
+        💜 <strong>Actualmente estamos especialmente interesados en jugadoras para fútbol femenino.</strong><br>
+        Si te apetece probar o informarte, escríbenos sin compromiso.
+      </p>
+
       <form
-        action="https://formspree.io/f/xlgbagbn"
+        id="formulario-jugadores"
+        action="PEGA_AQUI_TU_URL_DE_FORMSPREE"
         method="POST"
         class="space-y-4">
-
-        <!-- Redirección tras enviar -->
-      <input type="hidden" name="_next" value="/gracias-jugadores.html">
-
-
 
         <input type="text" name="nombre" required
           placeholder="Nombre y apellidos"
@@ -94,6 +96,15 @@
           <option>Fútbol femenino</option>
           <option>Baloncesto</option>
           <option>Pádel</option>
+          <option>Otro</option>
+        </select>
+
+        <select name="interes_futbol_femenino"
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+          <option value="">¿Te interesa fútbol femenino?</option>
+          <option>Sí</option>
+          <option>No</option>
+          <option>No aplica</option>
         </select>
 
         <select name="categoria"
@@ -106,16 +117,33 @@
           <option>No lo sé</option>
         </select>
 
+        <select name="experiencia"
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+          <option value="">Experiencia aproximada</option>
+          <option>Nunca he jugado en club</option>
+          <option>He jugado a nivel escolar</option>
+          <option>He jugado federado</option>
+          <option>Juego actualmente</option>
+        </select>
+
+        <select name="disponibilidad"
+          class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+          <option value="">Disponibilidad</option>
+          <option>Entre semana</option>
+          <option>Solo fines de semana</option>
+          <option>A concretar</option>
+        </select>
+
         <textarea name="mensaje" rows="3"
           placeholder="Cuéntanos algo más (opcional)"
           class="w-full bg-white/90 rounded-xl p-3 border border-gray-300"></textarea>
 
         <!-- RGPD -->
-        <div class="flex items-start gap-2 text-xs text-gray-700">
+        <div class="flex items-start gap-2 text-xs text-gray-900">
           <input type="checkbox" required class="mt-1">
           <label>
             Acepto que mis datos se utilicen únicamente para que el
-            CD Bustarviejo se ponga en contacto conmigo.
+            Club Deportivo Bustarviejo se ponga en contacto conmigo.
           </label>
         </div>
 
@@ -126,9 +154,46 @@
         </button>
 
       </form>
-    </div>
 
+      <!-- MENSAJE DE ÉXITO -->
+      <div id="mensaje-exito" class="hidden text-center mt-6">
+        <img src="escudo.png" class="w-20 mx-auto mb-4">
+
+        <h2 class="text-2xl font-extrabold text-gray-900 mb-3">
+          ¡Gracias por contactar!
+        </h2>
+
+        <p class="text-black/90">
+          Hemos recibido tus datos correctamente.<br>
+          Nos pondremos en contacto contigo lo antes posible.
+        </p>
+      </div>
+
+    </div>
   </div>
+
+  <!-- SCRIPT -->
+  <script>
+    const form = document.getElementById("formulario-jugadores");
+    const mensaje = document.getElementById("mensaje-exito");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const datos = new FormData(form);
+
+      await fetch(form.action, {
+        method: form.method,
+        body: datos,
+        headers: {
+          Accept: "application/json"
+        }
+      });
+
+      form.classList.add("hidden");
+      mensaje.classList.remove("hidden");
+    });
+  </script>
 
 </body>
 </html>
