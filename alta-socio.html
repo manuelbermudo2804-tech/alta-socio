@@ -19,34 +19,24 @@
 
 <body class="min-h-screen flex items-center justify-center p-4">
 
-  <!-- CONTENEDOR PRINCIPAL -->
   <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/60 overflow-hidden">
 
     <!-- CABECERA -->
     <div class="text-center p-6">
+      <img src="escudo.png" alt="Escudo CD Bustarviejo" class="w-24 mx-auto mb-3" />
 
-      <img src="escudo.png" alt="Escudo CD Bustarviejo"
-           class="w-24 mx-auto mb-3" />
+      <h1 class="text-3xl font-extrabold text-gray-800">HAZTE SOCIO</h1>
 
-      <h1 class="text-3xl font-extrabold text-gray-800">
-        HAZTE SOCIO
-      </h1>
-
-      <p class="text-gray-600 text-sm mt-1">
-        Club Deportivo Bustarviejo
-      </p>
+      <p class="text-gray-600 text-sm mt-1">Club Deportivo Bustarviejo</p>
 
       <div class="mt-4 inline-block bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
         Cuota anual: 25 €
       </div>
     </div>
 
-    <!-- TEXTO DE CONFIANZA -->
+    <!-- TEXTO -->
     <div class="px-6 text-sm text-gray-800 space-y-4">
-
-      <p>
-        <strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong>
-      </p>
+      <p><strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong></p>
 
       <p>
         Aquí entrenan y compiten niñas, niños, jóvenes y adultos en un entorno donde el respeto,
@@ -54,44 +44,11 @@
       </p>
 
       <p>
-        Tu apoyo nos permite seguir creciendo, impulsar el <strong>deporte femenino</strong>,
-        crear nuevas iniciativas y construir un club abierto, integrador y con futuro.
+        Tu apoyo nos permite seguir creciendo, impulsar el <strong>deporte femenino</strong> y
+        construir un club abierto, integrador y con futuro.
       </p>
 
-      <div class="pt-2">
-        <h2 class="font-bold mb-2">¿Por qué hacerte socio?</h2>
-        <ul class="space-y-1">
-          <li>💛 Apoyas directamente el deporte local</li>
-          <li>⚽ El deporte femenino es una prioridad real en nuestro proyecto</li>
-          <li>🤝 Formas parte de un club abierto, familiar e integrador</li>
-          <li>🌱 Apostamos por crecer con seriedad y planes de futuro</li>
-        </ul>
-      </div>
-
-      <div class="pt-2">
-        <h2 class="font-bold mb-2">Gestión transparente</h2>
-        <p>
-          El CD Bustarviejo es un club sin ánimo de lucro.
-          <strong>Cada euro recaudado se destina íntegramente al club</strong>:
-          material, instalaciones, formación y desarrollo deportivo.
-        </p>
-        <p class="mt-1">
-          Aquí no hay beneficios personales, solo compromiso y ganas de hacer las cosas bien.
-        </p>
-      </div>
-
-      <div class="pt-2">
-        <h2 class="font-bold mb-2">Pago seguro</h2>
-        <p>
-          El pago se realiza a través de <strong>Stripe</strong>, una plataforma de pago segura
-          y reconocida a nivel internacional.
-        </p>
-      </div>
-
-      <p class="pt-2 font-semibold">
-        Gracias por confiar en el CD Bustarviejo.
-      </p>
-
+      <p class="font-semibold">Gracias por confiar en el CD Bustarviejo.</p>
     </div>
 
     <!-- FORMULARIO -->
@@ -121,52 +78,47 @@
             class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
         </div>
 
-        <!-- RGPD -->
         <div class="flex items-start gap-2 text-sm text-gray-700">
-          <input type="checkbox" id="rgpd" required class="mt-1">
-          <label for="rgpd">
-            He leído y acepto la política de protección de datos.
-            Los datos se utilizarán únicamente para la gestión de socios del
-            Club Deportivo Bustarviejo.
+          <input type="checkbox" required class="mt-1">
+          <label>
+            Acepto la política de protección de datos.
+            Los datos se usarán únicamente para la gestión del club.
           </label>
         </div>
 
-        <button
-          type="submit"
-          class="w-full bg-black text-white py-4 rounded-xl font-bold
-                 hover:bg-gray-800 transition mt-4">
+        <button type="submit"
+          class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
           CONTINUAR AL PAGO
         </button>
 
       </form>
 
       <p class="text-xs text-center text-gray-600 mt-4">
-        ¿Tienes alguna duda? Escríbenos a
-        <strong>cdbustarviejo@outlook.es</strong>
+        Contacto: <strong>cdbustarviejo@outlook.es</strong>
       </p>
-
     </div>
   </div>
 
-  <!-- STRIPE -->
+  <!-- SCRIPT -->
   <script>
     const STRIPE_LINK = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
 
-    document.getElementById("form").addEventListener("submit", (e) => {
+    document.getElementById("form").addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      // 1️⃣ Enviar emails (Resend vía Vercel)
+      await fetch("/api/send-socio-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      // 2️⃣ Redirigir a Stripe
       const params = new URLSearchParams();
-
-      params.append("prefilled_email", formData.get("email"));
-
-      params.append("metadata[nombre_completo]", formData.get("nombre_completo"));
-      params.append("metadata[dni]", formData.get("dni"));
-      params.append("metadata[telefono]", formData.get("telefono"));
-      params.append("metadata[email]", formData.get("email"));
-      params.append("metadata[direccion]", formData.get("direccion") || "");
-      params.append("metadata[municipio]", formData.get("municipio") || "");
-      params.append("metadata[fecha_nacimiento]", formData.get("fecha_nacimiento") || "");
+      params.append("prefilled_email", data.email);
 
       window.location.href = STRIPE_LINK + "?" + params.toString();
     });
@@ -174,3 +126,4 @@
 
 </body>
 </html>
+
