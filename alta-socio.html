@@ -19,49 +19,30 @@
 
 <body class="min-h-screen flex items-center justify-center p-4">
 
-  <!-- CONTENEDOR -->
   <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/60 overflow-hidden">
 
     <!-- CABECERA -->
     <div class="text-center p-6">
       <img src="escudo.png" alt="Escudo CD Bustarviejo" class="w-24 mx-auto mb-3" />
-
       <h1 class="text-3xl font-extrabold text-gray-800">HAZTE SOCIO</h1>
-
-      <p class="text-gray-600 text-sm mt-1">
-        Club Deportivo Bustarviejo
-      </p>
+      <p class="text-gray-600 text-sm mt-1">Club Deportivo Bustarviejo</p>
 
       <div class="mt-4 inline-block bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
         Cuota anual: 25 €
       </div>
     </div>
 
-    <!-- TEXTO CONFIANZA -->
+    <!-- TEXTO -->
     <div class="px-6 text-sm text-gray-800 space-y-4">
       <p><strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong></p>
-
       <p>
-        Aquí entrenan y compiten niñas, niños, jóvenes y adultos en un entorno donde el respeto,
-        la igualdad y el compromiso están por delante del resultado.
+        Aquí entrenan y compiten personas de todas las edades en un entorno de respeto,
+        igualdad y compromiso.
       </p>
-
       <p>
-        Tu apoyo nos permite seguir creciendo, impulsar el <strong>deporte femenino</strong>,
-        crear nuevas iniciativas y construir un club abierto, integrador y con futuro.
+        Tu apoyo nos permite seguir creciendo y construir un club abierto, integrador y con futuro.
       </p>
-
-      <div>
-        <h2 class="font-bold mb-1">Gestión transparente</h2>
-        <p>
-          Somos un club sin ánimo de lucro. <strong>Cada euro recaudado se destina íntegramente al club</strong>:
-          material, formación, instalaciones y desarrollo deportivo.
-        </p>
-      </div>
-
-      <p class="font-semibold">
-        Gracias por confiar en el CD Bustarviejo.
-      </p>
+      <p class="font-semibold">Gracias por confiar en el CD Bustarviejo.</p>
     </div>
 
     <!-- FORMULARIO -->
@@ -91,13 +72,27 @@
             class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
         </div>
 
+        <!-- TIPO DE PAGO -->
+        <div class="bg-white rounded-xl p-4 border border-gray-300 text-sm space-y-2">
+          <p class="font-semibold text-gray-800">¿Cómo quieres pagar la cuota?</p>
+
+          <label class="flex items-center gap-2">
+            <input type="radio" name="tipo_pago" value="unico" checked>
+            Pago solo este año (25 €)
+          </label>
+
+          <label class="flex items-center gap-2">
+            <input type="radio" name="tipo_pago" value="suscripcion">
+            Renovación automática anual (recomendado)
+          </label>
+        </div>
+
         <!-- RGPD -->
         <div class="flex items-start gap-2 text-sm text-gray-700">
           <input type="checkbox" required class="mt-1">
           <label>
             He leído y acepto la política de protección de datos.
-            Los datos se utilizarán únicamente para la gestión de socios del
-            Club Deportivo Bustarviejo.
+            Autorizo la gestión del cobro según la opción elegida.
           </label>
         </div>
 
@@ -118,7 +113,9 @@
 
   <!-- JS -->
   <script>
-    const STRIPE_LINK = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
+    // 🔗 LINKS DE STRIPE
+    const STRIPE_PAGO_UNICO = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
+    const STRIPE_SUSCRIPCION = "https://buy.stripe.com/aFaaEX1Qk4CF7yseKvfrW01";
 
     document.getElementById("form").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -126,14 +123,20 @@
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
 
-      // 1️⃣ Enviar emails (opción A)
+      // Enviar email interno
       await fetch("/api/send-socio-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
-      // 2️⃣ Redirigir a Stripe
+      // Elegir tipo de pago
+      const tipoPago = document.querySelector('input[name="tipo_pago"]:checked').value;
+      const stripeLink = tipoPago === "suscripcion"
+        ? STRIPE_SUSCRIPCION
+        : STRIPE_PAGO_UNICO;
+
+      // Metadata
       const params = new URLSearchParams();
       params.append("prefilled_email", data.email);
 
@@ -141,7 +144,7 @@
         params.append(`metadata[${key}]`, value || "");
       });
 
-      window.location.href = STRIPE_LINK + "?" + params.toString();
+      window.location.href = stripeLink + "?" + params.toString();
     });
   </script>
 
