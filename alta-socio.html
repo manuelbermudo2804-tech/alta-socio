@@ -112,41 +112,50 @@
   </div>
 
   <!-- JS -->
-  <script>
-    // 🔗 LINKS DE STRIPE
-    const STRIPE_PAGO_UNICO = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
-    const STRIPE_SUSCRIPCION = "https://buy.stripe.com/aFaaEX1Qk4CF7yseKvfrW01";
+<script>
+  // 🔗 URL de tu función publicMemberCheckout en Base44
+  const API_URL = "https://app.base44.com/api/v1/6911b8e453ca3ac01fb134d6/functions/publicMemberCheckout";
 
-    document.getElementById("form").addEventListener("submit", async (e) => {
-      e.preventDefault();
+  document.getElementById("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector("button[type=submit]");
+    btn.disabled = true;
+    btn.textContent = "Procesando...";
 
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
 
-      // Enviar email interno
-      await fetch("/api/send-socio-email", {
+    try {
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          nombre_completo: data.nombre_completo,
+          dni: data.dni,
+          telefono: data.telefono,
+          email: data.email,
+          direccion: data.direccion || "",
+          municipio: data.municipio || "",
+          fecha_nacimiento: data.fecha_nacimiento || "",
+          tipo_pago: data.tipo_pago, // 'unico' o 'suscripcion'
+        }),
       });
 
-      // Elegir tipo de pago
-      const tipoPago = document.querySelector('input[name="tipo_pago"]:checked').value;
-      const stripeLink = tipoPago === "suscripcion"
-        ? STRIPE_SUSCRIPCION
-        : STRIPE_PAGO_UNICO;
+      const result = await res.json();
 
-      // Metadata
-      const params = new URLSearchParams();
-      params.append("prefilled_email", data.email);
-
-      Object.entries(data).forEach(([key, value]) => {
-        params.append(`metadata[${key}]`, value || "");
-      });
-
-      window.location.href = stripeLink + "?" + params.toString();
-    });
-  </script>
-
+      if (result.url) {
+        window.location.href = result.url;
+      } else {
+        alert(result.error || "Error al procesar. Inténtalo de nuevo.");
+        btn.disabled = false;
+        btn.textContent = "CONTINUAR AL PAGO";
+      }
+    } catch (err) {
+      alert("Error de conexión. Inténtalo de nuevo.");
+      btn.disabled = false;
+      btn.textContent = "CONTINUAR AL PAGO";
+    }
+  });
+</script>
 </body>
 </html>
