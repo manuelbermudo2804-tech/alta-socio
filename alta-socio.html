@@ -6,6 +6,62 @@
   <title>Hazte Socio - CD Bustarviejo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+
+    <script>
+const API_URL = 'https://app.base44.com/api/v1/functions/publicMemberCheckout';
+const APP_ID = '6911b8e453ca3ac01fb134d6';
+
+document.getElementById('form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const errorDiv = document.getElementById('errorMsg');
+  errorDiv.classList.add('hidden');
+  btn.disabled = true;
+  btn.textContent = 'Procesando...';
+
+  const fd = new FormData(this);
+  const payload = {
+    nombre_completo: fd.get('nombre_completo'),
+    dni: fd.get('dni'),
+    telefono: fd.get('telefono'),
+    email: fd.get('email'),
+    direccion: fd.get('direccion'),
+    municipio: fd.get('municipio'),
+    fecha_nacimiento: fd.get('fecha_nacimiento'),
+    tipo_pago: fd.get('tipo_pago'),
+    success_url: window.location.origin + '/gracias.html',
+    cancel_url: window.location.href
+  };
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-app-id': APP_ID
+      },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || 'No se recibió URL de pago');
+    }
+  } catch (err) {
+    errorDiv.textContent = err.message || 'Error al procesar. Inténtalo de nuevo.';
+    errorDiv.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'CONTINUAR AL PAGO';
+  }
+});
+
+// Detectar retorno exitoso
+if (new URLSearchParams(window.location.search).get('paid') === 'ok') {
+  document.getElementById('form').classList.add('hidden');
+  document.getElementById('successMsg').classList.remove('hidden');
+}
+</script>
     body { background: linear-gradient(135deg, #f97316 0%, #ea580c 40%, #16a34a 100%); }
   </style>
 </head>
