@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -98,6 +98,7 @@
 
         <button
           type="submit"
+          id="submitBtn"
           class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
           CONTINUAR AL PAGO
         </button>
@@ -113,40 +114,55 @@
 
   <!-- JS -->
   <script>
-    // 🔗 LINKS DE STRIPE
-    const STRIPE_PAGO_UNICO = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
-    const STRIPE_SUSCRIPCION = "https://buy.stripe.com/aFaaEX1Qk4CF7yseKvfrW01";
+    // 🔗 LINKS DE STRIPE (Payment Links)
+    const STRIPE_PAGO_UNICO   = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
+    const STRIPE_SUSCRIPCION  = "https://buy.stripe.com/aFaaEX1Qk4CF7yseKvfrW01";
+
+    // 🔗 URL de la función Base44 que pre-registra al socio
+    // ⚠️ CAMBIA ESTO por la URL real de tu función (Dashboard → Código → Functions → publicMemberRegister)
+    const REGISTER_URL = "https://club-deportivo-bustarviejo-copy-92897991.base44.app/api/functions/publicMemberRegister";
 
     document.getElementById("form").addEventListener("submit", async (e) => {
       e.preventDefault();
 
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Procesando...";
+
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
-
-      // Enviar email interno
-      await fetch("/api/send-socio-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      // Elegir tipo de pago
       const tipoPago = document.querySelector('input[name="tipo_pago"]:checked').value;
-      const stripeLink = tipoPago === "suscripcion"
-        ? STRIPE_SUSCRIPCION
-        : STRIPE_PAGO_UNICO;
 
-      // Metadata
+      // 1. Pre-registrar socio en Base44 (con todos los datos del formulario)
+      try {
+        await fetch(REGISTER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombre_completo: data.nombre_completo,
+            dni: data.dni,
+            telefono: data.telefono,
+            email: data.email,
+            direccion: data.direccion || "",
+            municipio: data.municipio || "",
+            fecha_nacimiento: data.fecha_nacimiento || "",
+            tipo_inscripcion: "Nueva Inscripción",
+            referido_por: ""
+          })
+        });
+      } catch (err) {
+        console.error("Error pre-registro:", err);
+        // Continuamos al pago aunque falle el pre-registro
+      }
+
+      // 2. Redirigir al Payment Link de Stripe con el email pre-rellenado
+      const stripeLink = tipoPago === "suscripcion" ? STRIPE_SUSCRIPCION : STRIPE_PAGO_UNICO;
       const params = new URLSearchParams();
       params.append("prefilled_email", data.email);
-
-      Object.entries(data).forEach(([key, value]) => {
-        params.append(`metadata[${key}]`, value || "");
-      });
 
       window.location.href = stripeLink + "?" + params.toString();
     });
   </script>
 
 </body>
-</html>   
+</html>
