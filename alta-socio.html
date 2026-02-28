@@ -1,206 +1,373 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hazte Socio - CD Bustarviejo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-
-    <script>
-const API_URL = 'https://app.base44.com/api/v1/functions/publicMemberCheckout';
-const APP_ID = '6911b8e453ca3ac01fb134d6';
-
-document.getElementById('form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const errorDiv = document.getElementById('errorMsg');
-  errorDiv.classList.add('hidden');
-  btn.disabled = true;
-  btn.textContent = 'Procesando...';
-
-  const fd = new FormData(this);
-  const payload = {
-    nombre_completo: fd.get('nombre_completo'),
-    dni: fd.get('dni'),
-    telefono: fd.get('telefono'),
-    email: fd.get('email'),
-    direccion: fd.get('direccion'),
-    municipio: fd.get('municipio'),
-    fecha_nacimiento: fd.get('fecha_nacimiento'),
-    tipo_pago: fd.get('tipo_pago'),
-    success_url: window.location.origin + '/gracias.html',
-    cancel_url: window.location.href
-  };
-
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-app-id': APP_ID
-      },
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      throw new Error(data.error || 'No se recibió URL de pago');
-    }
-  } catch (err) {
-    errorDiv.textContent = err.message || 'Error al procesar. Inténtalo de nuevo.';
-    errorDiv.classList.remove('hidden');
-    btn.disabled = false;
-    btn.textContent = 'CONTINUAR AL PAGO';
-  }
-});
-
-// Detectar retorno exitoso
-if (new URLSearchParams(window.location.search).get('paid') === 'ok') {
-  document.getElementById('form').classList.add('hidden');
-  document.getElementById('successMsg').classList.remove('hidden');
-}
-</script>
-    body { background: linear-gradient(135deg, #f97316 0%, #ea580c 40%, #16a34a 100%); }
-  </style>
-</head>
-<body class="min-h-screen flex items-center justify-center p-4">
-
-  <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/60 overflow-hidden">
-
-    <!-- CABECERA -->
-    <div class="text-center p-6">
-      <img src="https://alta-socio.vercel.app/escudo.png" alt="Escudo CD Bustarviejo" class="w-24 mx-auto mb-3">
-      <h1 class="text-3xl font-extrabold text-gray-800">HAZTE SOCIO</h1>
-      <p class="text-gray-600 text-sm mt-1">Club Deportivo Bustarviejo</p>
-      <div class="mt-4 inline-block bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
-        Cuota anual: 25 €
-      </div>
-    </div>
-
-    <!-- TEXTO -->
-    <div class="px-6 text-sm text-gray-800 space-y-4">
-      <p><strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong></p>
-      <p>Aquí entrenan y compiten personas de todas las edades en un entorno de respeto, igualdad y compromiso.</p>
-      <p>Tu apoyo nos permite seguir creciendo y construir un club abierto, integrador y con futuro.</p>
-      <p class="font-semibold">Gracias por confiar en el CD Bustarviejo.</p>
-    </div>
-
-    <!-- FORMULARIO -->
-    <div class="px-6 pb-6 pt-4">
-      <form id="form" class="space-y-4">
-        <input name="nombre_completo" required placeholder="Nombre completo"
-               class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
-        <div class="grid grid-cols-2 gap-3">
-          <input name="dni" required placeholder="DNI"
-                 class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
-          <input name="telefono" required placeholder="Teléfono"
-                 class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
-        </div>
-        <input name="email" type="email" required placeholder="Email"
-               class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
-        <input name="direccion" placeholder="Dirección"
-               class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
-        <div class="grid grid-cols-2 gap-3">
-          <input name="municipio" placeholder="Municipio"
-                 class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
-          <input name="fecha_nacimiento" type="date"
-                 class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
-        </div>
-
-        <div class="bg-white rounded-xl p-4 border border-gray-300 text-sm space-y-2">
-          <p class="font-semibold text-gray-800">¿Cómo quieres pagar la cuota?</p>
-          <label class="flex items-center gap-2">
-            <input type="radio" name="tipo_pago" value="unico" checked>
-            Pago solo este año (25 €)
-          </label>
-          <label class="flex items-center gap-2">
-            <input type="radio" name="tipo_pago" value="suscripcion">
-            Renovación automática anual (recomendado)
-          </label>
-        </div>
-
-        <div class="flex items-start gap-2 text-sm text-gray-700">
-          <input type="checkbox" required class="mt-1">
-          <label>He leído y acepto la política de protección de datos. Autorizo la gestión del cobro según la opción elegida.</label>
-        </div>
-
-        <button type="submit" id="submitBtn"
-                class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
-          CONTINUAR AL PAGO
-        </button>
-      </form>
-
-      <div id="successMsg" class="hidden text-center py-8">
-        <div class="text-5xl mb-3">✅</div>
-        <h2 class="text-xl font-bold text-green-700">¡Pago completado!</h2>
-        <p class="text-gray-600 mt-2">Gracias por hacerte socio del CD Bustarviejo.</p>
-      </div>
-
-      <div id="errorMsg" class="hidden bg-red-100 text-red-700 rounded-xl p-4 mt-4 text-sm text-center"></div>
-
-      <p class="text-xs text-center text-gray-600 mt-4">
-        ¿Tienes alguna duda? Escríbenos a <strong>cdbustarviejo@outlook.es</strong>
-      </p>
-    </div>
-  </div>
-
-  <script>
-    var API_URL = "https://app.base44.com/api/apps/6992c6be619d2da592897991/functions/publicMemberCheckout";
-    var currentPage = window.location.href.split("?")[0];
-
-    var params = new URLSearchParams(window.location.search);
-    if (params.get("paid") === "ok") {
-      document.getElementById("form").classList.add("hidden");
-      document.getElementById("successMsg").classList.remove("hidden");
-    }
-
-    document.getElementById("form").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      var btn = document.getElementById("submitBtn");
-      var errorDiv = document.getElementById("errorMsg");
-      errorDiv.classList.add("hidden");
-      btn.disabled = true;
-      btn.textContent = "Procesando...";
-
-      var fd = new FormData(e.target);
-
-      var payload = {
-        nombre_completo: fd.get("nombre_completo"),
-        dni: fd.get("dni"),
-        telefono: fd.get("telefono"),
-        email: fd.get("email"),
-        direccion: fd.get("direccion") || "",
-        municipio: fd.get("municipio") || "",
-        fecha_nacimiento: fd.get("fecha_nacimiento") || "",
-        tipo_pago: fd.get("tipo_pago") || "unico",
-        success_url: currentPage + "?paid=ok",
-        cancel_url: currentPage + "?canceled=socio"
-      };
-
-      fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          throw new Error(data.error || "No se recibió URL de pago");
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazte Socio - CD Bustarviejo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #064e3b 50%, #0f172a 100%);
+            color: #f8fafc;
         }
-      })
-      .catch(function(err) {
-        errorDiv.textContent = "Error: " + (err.message || "Inténtalo de nuevo");
-        errorDiv.classList.remove("hidden");
-        btn.disabled = false;
-        btn.textContent = "CONTINUAR AL PAGO";
-      });
-    });
-  </script>
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        
+        /* Header */
+        .header { text-align: center; padding: 30px 0 20px; }
+        .logo { width: 96px; height: 96px; border-radius: 16px; border: 3px solid rgba(249,115,22,0.5); object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .emojis { font-size: 36px; margin: 12px 0; }
+        .title { font-size: 28px; font-weight: 800; background: linear-gradient(90deg, #fb923c, #4ade80, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .subtitle { color: #94a3b8; font-size: 14px; margin-top: 6px; }
+
+        /* Card */
+        .card { background: #fff; border-radius: 16px; padding: 24px; margin: 16px 0; color: #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .card-header { background: linear-gradient(90deg, #ea580c, #16a34a); color: #fff; margin: -24px -24px 20px; padding: 16px 24px; border-radius: 16px 16px 0 0; font-weight: 700; font-size: 18px; }
+
+        /* Benefits */
+        .benefit { display: flex; gap: 12px; padding: 12px; border-radius: 12px; margin-bottom: 8px; }
+        .benefit-green { background: linear-gradient(90deg, #f0fdf4, #dcfce7); }
+        .benefit-orange { background: linear-gradient(90deg, #fff7ed, #ffedd5); }
+        .benefit-blue { background: linear-gradient(90deg, #eff6ff, #dbeafe); }
+        .benefit-purple { background: linear-gradient(90deg, #faf5ff, #f3e8ff); }
+        .benefit-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .benefit h4 { font-size: 14px; font-weight: 600; }
+        .benefit p { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+        /* Form */
+        label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #334155; }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select {
+            width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; margin-bottom: 12px; outline: none; transition: border-color 0.2s;
+        }
+        input:focus, select:focus { border-color: #fb923c; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
+
+        /* Checkbox */
+        .checkbox-row { display: flex; gap: 10px; padding: 14px; border-radius: 12px; background: #fff7ed; border: 2px solid #fed7aa; margin-bottom: 16px; align-items: flex-start; }
+        .checkbox-row input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; accent-color: #ea580c; }
+        .checkbox-row .label-text { font-weight: 600; color: #7c2d12; font-size: 14px; }
+        .checkbox-row .label-desc { font-size: 12px; color: #9a3412; margin-top: 2px; }
+
+        /* Referido */
+        .referral-box { padding: 14px; border-radius: 12px; background: linear-gradient(90deg, #faf5ff, #fce7f3); border: 2px solid #e9d5ff; margin-bottom: 16px; }
+        .referral-box label { color: #581c87; }
+        .referral-box .desc { font-size: 12px; color: #7e22ce; margin-bottom: 8px; }
+
+        /* Payment section */
+        .payment-box { padding: 20px; border-radius: 12px; background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 2px solid #86efac; }
+        .payment-title { font-size: 18px; font-weight: 700; color: #14532d; margin-bottom: 12px; }
+        .payment-option { display: flex; align-items: center; gap: 10px; padding: 14px; background: #fff; border-radius: 10px; border: 2px solid #e2e8f0; margin-bottom: 8px; cursor: pointer; transition: border-color 0.2s; }
+        .payment-option:hover, .payment-option.selected { border-color: #16a34a; }
+        .payment-option input[type="radio"] { accent-color: #16a34a; width: 18px; height: 18px; }
+
+        /* Buttons */
+        .btn-main {
+            width: 100%; padding: 18px; border: none; border-radius: 14px; font-size: 18px; font-weight: 700; color: #fff; cursor: pointer;
+            background: linear-gradient(90deg, #ea580c, #16a34a); box-shadow: 0 6px 20px rgba(0,0,0,0.2); transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .btn-main:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-secondary { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 14px; font-size: 16px; font-weight: 600; background: #fff; color: #64748b; cursor: pointer; margin-top: 8px; }
+
+        /* WhatsApp */
+        .whatsapp-card { background: linear-gradient(90deg, #16a34a, #15803d); border-radius: 16px; padding: 20px; margin: 16px 0; color: #fff; }
+        .whatsapp-btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; background: #fff; color: #15803d; cursor: pointer; }
+
+        /* Footer */
+        .footer { text-align: center; padding: 30px 0; color: #64748b; font-size: 13px; }
+
+        /* Success */
+        .success-card { text-align: center; background: linear-gradient(135deg, #dcfce7, #d1fae5); border: 2px solid #4ade80; }
+        .success-icon { font-size: 64px; margin-bottom: 10px; }
+        .success-title { font-size: 24px; font-weight: 800; color: #14532d; }
+
+        /* Spinner */
+        .spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Error */
+        .error-msg { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 12px; display: none; }
+
+        .section-title { font-weight: 600; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6911b8e453ca3ac01fb134d6/e3f0a8e26_logo_cd_bustarviejo_mediano.jpg" alt="CD Bustarviejo" class="logo">
+        <div class="emojis">🎉 ⚽ 🏀 🎉</div>
+        <h1 class="title">¡Hazte Socio del CD Bustarviejo!</h1>
+        <p class="subtitle">Forma parte de nuestra gran familia deportiva</p>
+    </div>
+
+    <!-- Success message (hidden by default) -->
+    <div id="success" class="card success-card" style="display:none;">
+        <div class="success-icon">✅</div>
+        <h2 class="success-title">🎉 ¡Bienvenido/a!</h2>
+        <p style="color:#166534; margin-top:10px;">Tu registro se ha completado y serás redirigido a la pasarela de pago de Stripe.</p>
+        <p style="color:#166534; font-size:13px; margin-top:8px;">Si no se redirige automáticamente, haz clic en el botón de abajo.</p>
+        <a id="stripe-link" href__="#" style="display:inline-block; margin-top:16px; padding:14px 28px; background:linear-gradient(90deg,#ea580c,#16a34a); color:#fff; border-radius:10px; text-decoration:none; font-weight:700;">Ir a pagar →</a>
+    </div>
+
+    <!-- Benefits -->
+    <div id="benefits" class="card">
+        <h3 style="font-size:18px; font-weight:700; margin-bottom:12px;">⭐ ¿Por qué ser socio?</h3>
+        <div class="benefit benefit-green">
+            <div class="benefit-icon" style="background:#dcfce7;">💚</div>
+            <div><h4>Apoyo esencial al club</h4><p>Tu aportación es vital para el desarrollo de nuestros jóvenes deportistas</p></div>
+        </div>
+        <div class="benefit benefit-orange">
+            <div class="benefit-icon" style="background:#ffedd5;">👥</div>
+            <div><h4>Fuerza para la comunidad</h4><p>Únete a la gran familia del club y vive la pasión por el deporte en Bustarviejo</p></div>
+        </div>
+        <div class="benefit benefit-blue">
+            <div class="benefit-icon" style="background:#dbeafe;">🎉</div>
+            <div><h4>Eventos y momentos inolvidables</h4><p>Participa en las actividades del club y comparte experiencias únicas</p></div>
+        </div>
+        <div class="benefit benefit-purple">
+            <div class="benefit-icon" style="background:#f3e8ff;">✨</div>
+            <div><h4>Compromiso con el deporte base</h4><p>Contribuye directamente al crecimiento y formación de nuestros deportistas</p></div>
+        </div>
+    </div>
+
+    <!-- CTA Button -->
+    <div id="cta" style="margin:16px 0;">
+        <button class="btn-main" onclick="showForm()">👤 ¡Quiero ser socio! 🎉</button>
+        <p style="text-align:center; color:#94a3b8; font-size:13px; margin-top:8px;">Cuota anual: Solo <span style="color:#fb923c; font-weight:700;">25€</span> /temporada</p>
+    </div>
+
+    <!-- Form (hidden by default) -->
+    <div id="form-section" class="card" style="display:none;">
+        <div class="card-header">👥 Formulario de Inscripción como Socio</div>
+
+        <div id="error-msg" class="error-msg"></div>
+
+        <form id="socio-form" onsubmit="handleSubmit(event)">
+            <!-- Tipo inscripción -->
+            <label>Tipo de Inscripción *</label>
+            <div class="payment-option selected" onclick="selectTipo(this, 'Nueva Inscripción')">
+                <input type="radio" name="tipo" value="Nueva Inscripción" checked>
+                <div><strong>🆕 Nueva Inscripción</strong><br><span style="font-size:12px;color:#64748b;">Primera vez como socio del club</span></div>
+            </div>
+            <div class="payment-option" onclick="selectTipo(this, 'Renovación')">
+                <input type="radio" name="tipo" value="Renovación">
+                <div><strong>🔄 Renovación</strong><br><span style="font-size:12px;color:#64748b;">Ya fui socio en temporadas anteriores</span></div>
+            </div>
+            <br>
+
+            <!-- Segundo progenitor -->
+            <div class="checkbox-row">
+                <input type="checkbox" id="segundo_progenitor">
+                <div>
+                    <div class="label-text">👫 Soy el segundo progenitor de un jugador inscrito</div>
+                    <div class="label-desc">Marca esta casilla si el jugador principal ya ha sido inscrito por otro tutor</div>
+                </div>
+            </div>
+
+            <!-- Referido -->
+            <div class="referral-box">
+                <label>🎁 ¿Quién te ha invitado a hacerte socio?</label>
+                <div class="desc">Si un amigo o familiar te invitó, escribe su nombre (opcional)</div>
+                <input type="text" id="referido_por" placeholder="Nombre de quien te invitó (opcional)">
+            </div>
+
+            <!-- Datos personales -->
+            <h3 class="section-title">Datos del nuevo socio</h3>
+            <div class="grid-2">
+                <div>
+                    <label>Nombre y Apellidos *</label>
+                    <input type="text" id="nombre" placeholder="Ej: Juan García López" required>
+                </div>
+                <div>
+                    <label>DNI *</label>
+                    <input type="text" id="dni" placeholder="12345678A" required>
+                </div>
+                <div>
+                    <label>Teléfono Móvil *</label>
+                    <input type="tel" id="telefono" placeholder="600123456" required>
+                </div>
+                <div>
+                    <label>Correo Electrónico *</label>
+                    <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+                </div>
+            </div>
+            <label>Dirección Completa *</label>
+            <input type="text" id="direccion" placeholder="Calle, número, piso..." required>
+            <div class="grid-2">
+                <div>
+                    <label>Municipio *</label>
+                    <input type="text" id="municipio" placeholder="Bustarviejo" required>
+                </div>
+                <div>
+                    <label>Fecha de Nacimiento</label>
+                    <input type="date" id="fecha_nacimiento">
+                </div>
+            </div>
+
+            <!-- Pago -->
+            <div class="payment-box" style="margin-top:16px;">
+                <div class="payment-title">💳 Pago: 25€</div>
+                <p style="font-size:13px; color:#166534; margin-bottom:12px;">El pago se realizará de forma segura a través de Stripe</p>
+                
+                <label>Tipo de pago</label>
+                <div class="payment-option selected" onclick="selectPago(this, 'unico')">
+                    <input type="radio" name="tipo_pago" value="unico" checked>
+                    <div><strong>💳 Pago Único (25€)</strong><br><span style="font-size:12px;color:#64748b;">Un solo pago por tarjeta</span></div>
+                </div>
+            </div>
+
+            <br>
+            <button type="submit" class="btn-main" id="submit-btn">🎉 Registrarme y Pagar</button>
+            <button type="button" class="btn-secondary" onclick="hideForm()">Cancelar</button>
+        </form>
+    </div>
+
+    <!-- WhatsApp share -->
+    <div id="whatsapp" class="whatsapp-card">
+        <div style="display:flex; gap:14px; align-items:flex-start;">
+            <div style="font-size:36px;">🤝</div>
+            <div style="flex:1;">
+                <h3 style="font-size:18px; font-weight:700; margin-bottom:6px;">¿Conoces a alguien más?</h3>
+                <p style="font-size:13px; opacity:0.9; margin-bottom:12px;">¡Comparte este enlace con más personas que quieran apoyar al club!</p>
+                <button class="whatsapp-btn" onclick="shareWhatsApp()">💬 Compartir por WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>📧 cdbustarviejo@gmail.com</p>
+        <p style="margin-top:4px;">📍 Bustarviejo, Madrid</p>
+        <p style="margin-top:12px; font-size:11px;">© CD Bustarviejo - Todos los derechos reservados</p>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicMemberCheckout';
+    const THIS_PAGE_URL = window.location.href.split('?')[0];
+
+    function showForm() {
+        document.getElementById('form-section').style.display = 'block';
+        document.getElementById('cta').style.display = 'none';
+        document.getElementById('benefits').style.display = 'none';
+        document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function hideForm() {
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('cta').style.display = 'block';
+        document.getElementById('benefits').style.display = 'block';
+    }
+
+    function selectTipo(el, value) {
+        document.querySelectorAll('[name="tipo"]').forEach(r => r.closest('.payment-option').classList.remove('selected'));
+        el.classList.add('selected');
+        el.querySelector('input[type="radio"]').checked = true;
+    }
+
+    function selectPago(el, value) {
+        document.querySelectorAll('[name="tipo_pago"]').forEach(r => r.closest('.payment-option').classList.remove('selected'));
+        el.classList.add('selected');
+        el.querySelector('input[type="radio"]').checked = true;
+    }
+
+    function showError(msg) {
+        const el = document.getElementById('error-msg');
+        el.textContent = msg;
+        el.style.display = 'block';
+        el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function shareWhatsApp() {
+        const msg = '¡Hazte socio del CD Bustarviejo! ⚽🏀\n\nPor solo 25€/temporada ayudas a los jóvenes deportistas del club.\n\n👉 Regístrate aquí: ' + THIS_PAGE_URL + '\n\n¡Gracias por tu apoyo! 💪';
+        window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombre').value.trim();
+        const dni = document.getElementById('dni').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const direccion = document.getElementById('direccion').value.trim();
+        const municipio = document.getElementById('municipio').value.trim();
+        const fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
+        const referido_por = document.getElementById('referido_por').value.trim();
+        const es_segundo_progenitor = document.getElementById('segundo_progenitor').checked;
+        const tipo_pago = document.querySelector('[name="tipo_pago"]:checked').value;
+
+        if (!nombre || !dni || !telefono || !email || !direccion || !municipio) {
+            showError('Por favor, rellena todos los campos obligatorios (*)');
+            return;
+        }
+
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Procesando...';
+        document.getElementById('error-msg').style.display = 'none';
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nombre_completo: nombre,
+                    dni,
+                    telefono,
+                    email,
+                    direccion,
+                    municipio,
+                    fecha_nacimiento,
+                    referido_por,
+                    es_segundo_progenitor,
+                    tipo_pago,
+                    success_url: THIS_PAGE_URL + '?paid=ok',
+                    cancel_url: THIS_PAGE_URL + '?canceled=true'
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Error en el servidor');
+            }
+
+            if (data.url) {
+                // Show success and redirect to Stripe
+                document.getElementById('form-section').style.display = 'none';
+                document.getElementById('whatsapp').style.display = 'none';
+                document.getElementById('success').style.display = 'block';
+                document.getElementById('stripe-link').href = data.url;
+                document.getElementById('success').scrollIntoView({ behavior: 'smooth' });
+
+                // Auto-redirect after 2 seconds
+                setTimeout(() => { window.location.href = data.url; }, 2000);
+            } else {
+                throw new Error('No se recibió enlace de pago');
+            }
+        } catch (err) {
+            showError(err.message || 'Error al procesar la solicitud. Inténtalo de nuevo.');
+            btn.disabled = false;
+            btn.innerHTML = '🎉 Registrarme y Pagar';
+        }
+    }
+
+    // Check URL params for return from Stripe
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('paid') === 'ok') {
+        document.getElementById('cta').style.display = 'none';
+        document.getElementById('benefits').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+        document.querySelector('.success-title').textContent = '🎉 ¡Pago completado!';
+        document.querySelector('#success p').textContent = 'Tu registro como socio se ha completado correctamente. ¡Bienvenido/a al CD Bustarviejo!';
+        document.getElementById('stripe-link').style.display = 'none';
+    }
+</script>
 
 </body>
 </html>
