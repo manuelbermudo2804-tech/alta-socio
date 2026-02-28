@@ -18,7 +18,6 @@
       <img src="https://alta-socio.vercel.app/escudo.png" alt="Escudo CD Bustarviejo" class="w-24 mx-auto mb-3">
       <h1 class="text-3xl font-extrabold text-gray-800">HAZTE SOCIO</h1>
       <p class="text-gray-600 text-sm mt-1">Club Deportivo Bustarviejo</p>
-
       <div class="mt-4 inline-block bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
         Cuota anual: 25 €
       </div>
@@ -27,36 +26,26 @@
     <!-- TEXTO -->
     <div class="px-6 text-sm text-gray-800 space-y-4">
       <p><strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong></p>
-      <p>
-        Aquí entrenan y compiten personas de todas las edades en un entorno de respeto,
-        igualdad y compromiso.
-      </p>
-      <p>
-        Tu apoyo nos permite seguir creciendo y construir un club abierto, integrador y con futuro.
-      </p>
+      <p>Aquí entrenan y compiten personas de todas las edades en un entorno de respeto, igualdad y compromiso.</p>
+      <p>Tu apoyo nos permite seguir creciendo y construir un club abierto, integrador y con futuro.</p>
       <p class="font-semibold">Gracias por confiar en el CD Bustarviejo.</p>
     </div>
 
     <!-- FORMULARIO -->
     <div class="px-6 pb-6 pt-4">
       <form id="form" class="space-y-4">
-
         <input name="nombre_completo" required placeholder="Nombre completo"
                class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
-
         <div class="grid grid-cols-2 gap-3">
           <input name="dni" required placeholder="DNI"
                  class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
           <input name="telefono" required placeholder="Teléfono"
                  class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
         </div>
-
         <input name="email" type="email" required placeholder="Email"
                class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
-
         <input name="direccion" placeholder="Dirección"
                class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
-
         <div class="grid grid-cols-2 gap-3">
           <input name="municipio" placeholder="Municipio"
                  class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
@@ -64,7 +53,6 @@
                  class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
         </div>
 
-        <!-- TIPO DE PAGO -->
         <div class="bg-white rounded-xl p-4 border border-gray-300 text-sm space-y-2">
           <p class="font-semibold text-gray-800">¿Cómo quieres pagar la cuota?</p>
           <label class="flex items-center gap-2">
@@ -77,64 +65,53 @@
           </label>
         </div>
 
-        <!-- RGPD -->
         <div class="flex items-start gap-2 text-sm text-gray-700">
           <input type="checkbox" required class="mt-1">
-          <label>
-            He leído y acepto la política de protección de datos.
-            Autorizo la gestión del cobro según la opción elegida.
-          </label>
+          <label>He leído y acepto la política de protección de datos. Autorizo la gestión del cobro según la opción elegida.</label>
         </div>
 
         <button type="submit" id="submitBtn"
                 class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
           CONTINUAR AL PAGO
         </button>
-
       </form>
 
-      <!-- MENSAJE DE ÉXITO -->
       <div id="successMsg" class="hidden text-center py-8">
         <div class="text-5xl mb-3">✅</div>
         <h2 class="text-xl font-bold text-green-700">¡Pago completado!</h2>
         <p class="text-gray-600 mt-2">Gracias por hacerte socio del CD Bustarviejo.</p>
       </div>
 
-      <!-- MENSAJE DE ERROR -->
       <div id="errorMsg" class="hidden bg-red-100 text-red-700 rounded-xl p-4 mt-4 text-sm text-center"></div>
 
       <p class="text-xs text-center text-gray-600 mt-4">
-        ¿Tienes alguna duda? Escríbenos a
-        <strong>cdbustarviejo@outlook.es</strong>
+        ¿Tienes alguna duda? Escríbenos a <strong>cdbustarviejo@outlook.es</strong>
       </p>
     </div>
   </div>
 
-  <!-- JS -->
   <script>
-    const API_URL = "https://app.base44.com/api/apps/6992c6be619d2da592897991/functions/publicMemberCheckout";
-    const currentPage = window.location.href.split("?")[0];
+    var API_URL = "https://app.base44.com/api/apps/6992c6be619d2da592897991/functions/publicMemberCheckout";
+    var currentPage = window.location.href.split("?")[0];
 
-    // Detectar pago completado
-    const params = new URLSearchParams(window.location.search);
+    var params = new URLSearchParams(window.location.search);
     if (params.get("paid") === "ok") {
       document.getElementById("form").classList.add("hidden");
       document.getElementById("successMsg").classList.remove("hidden");
     }
 
-    document.getElementById("form").addEventListener("submit", async function (e) {
+    document.getElementById("form").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const btn = document.getElementById("submitBtn");
-      const errorDiv = document.getElementById("errorMsg");
+      var btn = document.getElementById("submitBtn");
+      var errorDiv = document.getElementById("errorMsg");
       errorDiv.classList.add("hidden");
-
       btn.disabled = true;
       btn.textContent = "Procesando...";
 
-      const fd = new FormData(this);
+      var fd = new FormData(e.target);
 
-      const payload = {
+      var payload = {
         nombre_completo: fd.get("nombre_completo"),
         dni: fd.get("dni"),
         telefono: fd.get("telefono"),
@@ -144,29 +121,28 @@
         fecha_nacimiento: fd.get("fecha_nacimiento") || "",
         tipo_pago: fd.get("tipo_pago") || "unico",
         success_url: currentPage + "?paid=ok",
-        cancel_url: currentPage + "?canceled=socio",
+        cancel_url: currentPage + "?canceled=socio"
       };
 
-      try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-
-        const data = await res.json();
-
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
         if (data.url) {
           window.location.href = data.url;
         } else {
           throw new Error(data.error || "No se recibió URL de pago");
         }
-      } catch (err) {
+      })
+      .catch(function(err) {
         errorDiv.textContent = "Error: " + (err.message || "Inténtalo de nuevo");
         errorDiv.classList.remove("hidden");
         btn.disabled = false;
         btn.textContent = "CONTINUAR AL PAGO";
-      }
+      });
     });
   </script>
 
