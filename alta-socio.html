@@ -113,7 +113,6 @@
 
   <!-- JS -->
 <script>
-  // 🔗 URL de tu función publicMemberCheckout en Base44
   const API_URL = "https://app.base44.com/api/apps/6911b8e453ca3ac01fb134d6/functions/publicMemberCheckout";
 
   document.getElementById("form").addEventListener("submit", async (e) => {
@@ -124,6 +123,9 @@
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
+
+    // URLs de retorno apuntando a esta misma página
+    const currentPage = window.location.origin + window.location.pathname;
 
     try {
       const res = await fetch(API_URL, {
@@ -137,9 +139,19 @@
           direccion: data.direccion || "",
           municipio: data.municipio || "",
           fecha_nacimiento: data.fecha_nacimiento || "",
-          tipo_pago: data.tipo_pago, // 'unico' o 'suscripcion'
+          tipo_pago: data.tipo_pago,
+          success_url: currentPage + "?paid=ok",
+          cancel_url: currentPage + "?canceled=socio",
         }),
       });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => null);
+        alert(errorData?.error || "Error del servidor (" + res.status + "). Inténtalo de nuevo.");
+        btn.disabled = false;
+        btn.textContent = "CONTINUAR AL PAGO";
+        return;
+      }
 
       const result = await res.json();
 
@@ -151,11 +163,28 @@
         btn.textContent = "CONTINUAR AL PAGO";
       }
     } catch (err) {
-      alert("Error de conexión. Inténtalo de nuevo.");
+      console.error("Error:", err);
+      alert("Error de conexión. Comprueba tu internet e inténtalo de nuevo.");
       btn.disabled = false;
       btn.textContent = "CONTINUAR AL PAGO";
     }
   });
+
+  // Mostrar mensaje si viene de Stripe
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("paid") === "ok") {
+    document.querySelector(".text-center.p-6").innerHTML = `
+      <div class="text-center py-8">
+        <div class="text-6xl mb-4">✅</div>
+        <h2 class="text-2xl font-bold text-green-700 mb-2">¡Pago completado!</h2>
+        <p class="text-gray-700">Gracias por hacerte socio del CD Bustarviejo.</p>
+        <p class="text-gray-600 text-sm mt-2">Recibirás un email de confirmación en breve.</p>
+      </div>
+    `;
+    document.getElementById("form").style.display = "none";
+  } else if (params.get("canceled") === "socio") {
+    alert("El pago fue cancelado. Puedes intentarlo de nuevo cuando quieras.");
+  }
 </script>
 </body>
 </html>
