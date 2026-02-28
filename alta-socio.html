@@ -1,29 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazte socio · CD Bustarviejo</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hazte Socio - CD Bustarviejo</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    body {
-      background-image: url("fondo.jpg");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
+    body { background: linear-gradient(135deg, #f97316 0%, #ea580c 40%, #16a34a 100%); }
   </style>
 </head>
-
 <body class="min-h-screen flex items-center justify-center p-4">
 
   <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/60 overflow-hidden">
 
     <!-- CABECERA -->
     <div class="text-center p-6">
-      <img src="escudo.png" alt="Escudo CD Bustarviejo" class="w-24 mx-auto mb-3" />
+      <img src="https://alta-socio.vercel.app/escudo.png" alt="Escudo CD Bustarviejo" class="w-24 mx-auto mb-3">
       <h1 class="text-3xl font-extrabold text-gray-800">HAZTE SOCIO</h1>
       <p class="text-gray-600 text-sm mt-1">Club Deportivo Bustarviejo</p>
 
@@ -50,37 +42,35 @@
       <form id="form" class="space-y-4">
 
         <input name="nombre_completo" required placeholder="Nombre completo"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+               class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
 
         <div class="grid grid-cols-2 gap-3">
           <input name="dni" required placeholder="DNI"
-            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+                 class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
           <input name="telefono" required placeholder="Teléfono"
-            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+                 class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
         </div>
 
         <input name="email" type="email" required placeholder="Email"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+               class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
 
         <input name="direccion" placeholder="Dirección"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+               class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none">
 
         <div class="grid grid-cols-2 gap-3">
           <input name="municipio" placeholder="Municipio"
-            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+                 class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
           <input name="fecha_nacimiento" type="date"
-            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+                 class="bg-white rounded-xl p-3 border border-gray-300 outline-none">
         </div>
 
         <!-- TIPO DE PAGO -->
         <div class="bg-white rounded-xl p-4 border border-gray-300 text-sm space-y-2">
           <p class="font-semibold text-gray-800">¿Cómo quieres pagar la cuota?</p>
-
           <label class="flex items-center gap-2">
             <input type="radio" name="tipo_pago" value="unico" checked>
             Pago solo este año (25 €)
           </label>
-
           <label class="flex items-center gap-2">
             <input type="radio" name="tipo_pago" value="suscripcion">
             Renovación automática anual (recomendado)
@@ -96,13 +86,22 @@
           </label>
         </div>
 
-        <button
-          type="submit"
-          class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
+        <button type="submit" id="submitBtn"
+                class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
           CONTINUAR AL PAGO
         </button>
 
       </form>
+
+      <!-- MENSAJE DE ÉXITO -->
+      <div id="successMsg" class="hidden text-center py-8">
+        <div class="text-5xl mb-3">✅</div>
+        <h2 class="text-xl font-bold text-green-700">¡Pago completado!</h2>
+        <p class="text-gray-600 mt-2">Gracias por hacerte socio del CD Bustarviejo.</p>
+      </div>
+
+      <!-- MENSAJE DE ERROR -->
+      <div id="errorMsg" class="hidden bg-red-100 text-red-700 rounded-xl p-4 mt-4 text-sm text-center"></div>
 
       <p class="text-xs text-center text-gray-600 mt-4">
         ¿Tienes alguna duda? Escríbenos a
@@ -112,79 +111,64 @@
   </div>
 
   <!-- JS -->
-<script>
-  const API_URL = "https://app.base44.com/api/apps/6911b8e453ca3ac01fb134d6/functions/publicMemberCheckout";
+  <script>
+    const API_URL = "https://app.base44.com/api/functions/publicMemberCheckout";
+    const currentPage = window.location.href.split("?")[0];
 
-  document.getElementById("form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const btn = e.target.querySelector("button[type=submit]");
-    btn.disabled = true;
-    btn.textContent = "Procesando...";
-
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-
-    // URLs de retorno apuntando a esta misma página
-    const currentPage = window.location.origin + window.location.pathname;
-
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nombre_completo: data.nombre_completo,
-          dni: data.dni,
-          telefono: data.telefono,
-          email: data.email,
-          direccion: data.direccion || "",
-          municipio: data.municipio || "",
-          fecha_nacimiento: data.fecha_nacimiento || "",
-          tipo_pago: data.tipo_pago,
-          success_url: currentPage + "?paid=ok",
-          cancel_url: currentPage + "?canceled=socio",
-        }),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => null);
-        alert(errorData?.error || "Error del servidor (" + res.status + "). Inténtalo de nuevo.");
-        btn.disabled = false;
-        btn.textContent = "CONTINUAR AL PAGO";
-        return;
-      }
-
-      const result = await res.json();
-
-      if (result.url) {
-        window.location.href = result.url;
-      } else {
-        alert(result.error || "Error al procesar. Inténtalo de nuevo.");
-        btn.disabled = false;
-        btn.textContent = "CONTINUAR AL PAGO";
-      }
-    } catch (err) {
-      console.error("Error:", err);
-      alert("Error de conexión. Comprueba tu internet e inténtalo de nuevo.");
-      btn.disabled = false;
-      btn.textContent = "CONTINUAR AL PAGO";
+    // Detectar pago completado
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("paid") === "ok") {
+      document.getElementById("form").classList.add("hidden");
+      document.getElementById("successMsg").classList.remove("hidden");
     }
-  });
 
-  // Mostrar mensaje si viene de Stripe
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("paid") === "ok") {
-    document.querySelector(".text-center.p-6").innerHTML = `
-      <div class="text-center py-8">
-        <div class="text-6xl mb-4">✅</div>
-        <h2 class="text-2xl font-bold text-green-700 mb-2">¡Pago completado!</h2>
-        <p class="text-gray-700">Gracias por hacerte socio del CD Bustarviejo.</p>
-        <p class="text-gray-600 text-sm mt-2">Recibirás un email de confirmación en breve.</p>
-      </div>
-    `;
-    document.getElementById("form").style.display = "none";
-  } else if (params.get("canceled") === "socio") {
-    alert("El pago fue cancelado. Puedes intentarlo de nuevo cuando quieras.");
-  }
-</script>
+    document.getElementById("form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const btn = document.getElementById("submitBtn");
+      const errorDiv = document.getElementById("errorMsg");
+      errorDiv.classList.add("hidden");
+
+      btn.disabled = true;
+      btn.textContent = "Procesando...";
+
+      const fd = new FormData(this);
+
+      const payload = {
+        nombre_completo: fd.get("nombre_completo"),
+        dni: fd.get("dni"),
+        telefono: fd.get("telefono"),
+        email: fd.get("email"),
+        direccion: fd.get("direccion") || "",
+        municipio: fd.get("municipio") || "",
+        fecha_nacimiento: fd.get("fecha_nacimiento") || "",
+        tipo_pago: fd.get("tipo_pago") || "unico",
+        success_url: currentPage + "?paid=ok",
+        cancel_url: currentPage + "?canceled=socio",
+      };
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error(data.error || "No se recibió URL de pago");
+        }
+      } catch (err) {
+        errorDiv.textContent = "Error: " + (err.message || "Inténtalo de nuevo");
+        errorDiv.classList.remove("hidden");
+        btn.disabled = false;
+        btn.textContent = "CONTINUAR AL PAGO";
+      }
+    });
+  </script>
+
 </body>
 </html>
