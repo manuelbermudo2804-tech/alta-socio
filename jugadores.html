@@ -50,10 +50,10 @@
       <div class="pt-2 text-sm text-gray-900">
         <p class="font-semibold mb-1">Síguenos:</p>
         <div class="flex gap-3 text-xl">
-          <a href="https://www.cdbustarviejo.com" target="_blank" title="Web">🌍</a>
-          <a href="https://www.instagram.com/cdbustarviejo/" target="_blank" title="Instagram">📸</a>
-          <a href="https://www.facebook.com/cdbustarviejo/" target="_blank" title="Facebook">👍</a>
-          <a href="https://x.com/CDBustarviejo" target="_blank" title="X">🐦</a>
+          <a href__="https://www.cdbustarviejo.com" target="_blank" title="Web">🌍</a>
+          <a href__="https://www.instagram.com/cdbustarviejo/" target="_blank" title="Instagram">📸</a>
+          <a href__="https://www.facebook.com/cdbustarviejo/" target="_blank" title="Facebook">👍</a>
+          <a href__="https://x.com/CDBustarviejo" target="_blank" title="X">🐦</a>
         </div>
       </div>
     </div>
@@ -177,17 +177,38 @@
     const form = document.getElementById("formulario-jugadores");
     const mensaje = document.getElementById("mensaje-exito");
 
+    // ⚠️ CAMBIA ESTA URL por la real de tu función receiveContactForm
+    // La encuentras en: Dashboard Base44 → Código → Funciones → receiveContactForm
+    const BASE44_WEBHOOK = "PEGA_AQUI_TU_URL";
+
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const datos = new FormData(form);
 
-      await fetch(form.action, {
+      // 1) Enviar a Formspree (como antes)
+      fetch(form.action, {
         method: form.method,
         body: datos,
-        headers: {
-          Accept: "application/json"
-        }
+        headers: { Accept: "application/json" }
+      });
+
+      // 2) Enviar a Base44 para gestionar desde la app
+      fetch(BASE44_WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: datos.get("nombre"),
+          edad: datos.get("edad"),
+          telefono: datos.get("telefono"),
+          email: datos.get("email"),
+          deporte: datos.get("deporte"),
+          futbol_femenino: datos.get("interes_futbol_femenino"),
+          categoria: datos.get("categoria"),
+          experiencia: datos.get("experiencia"),
+          disponibilidad: datos.get("disponibilidad"),
+          mensaje: datos.get("mensaje")
+        })
       });
 
       form.classList.add("hidden");
