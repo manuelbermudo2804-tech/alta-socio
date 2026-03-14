@@ -28,7 +28,7 @@ min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-padding:120px 20px 60px 20px;
+padding:140px 20px 80px 20px;
 }
 
 </style>
@@ -41,7 +41,7 @@ padding:120px 20px 60px 20px;
 <div class="header-contenido">
 
 <div class="logo">
-<img src="https://www.cdbustarviejo.com/img/escudo.png">
+<img src="https://www.cdbustarviejo.com/img/escudo.png" alt="Escudo">
 <span>C.D. Bustarviejo</span>
 </div>
 
@@ -90,33 +90,18 @@ Cuota anual: 25 €
 
 </div>
 
-<div class="px-6 text-sm text-gray-800 space-y-4">
-
-<p><strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong></p>
-
-<p>
-Tu apoyo nos permite seguir creciendo y desarrollar el deporte
-para niños, jóvenes y adultos.
-</p>
-
-</div>
-
-<div class="px-6 pb-6 pt-4">
+<div class="px-6 pb-6">
 
 <form id="form" class="space-y-4">
 
 <input name="nombre_completo" required placeholder="Nombre completo"
 class="w-full bg-white rounded-xl p-3 border border-gray-300">
 
-<div class="grid grid-cols-2 gap-3">
-
 <input name="dni" required placeholder="DNI"
-class="bg-white rounded-xl p-3 border border-gray-300">
+class="w-full bg-white rounded-xl p-3 border border-gray-300">
 
 <input name="telefono" required placeholder="Teléfono"
-class="bg-white rounded-xl p-3 border border-gray-300">
-
-</div>
+class="w-full bg-white rounded-xl p-3 border border-gray-300">
 
 <input name="email" type="email" required placeholder="Email"
 class="w-full bg-white rounded-xl p-3 border border-gray-300">
@@ -148,9 +133,7 @@ Renovación automática
 type="submit"
 id="submitBtn"
 class="w-full bg-black text-white py-4 rounded-xl font-bold">
-
 Continuar al pago
-
 </button>
 
 </form>
@@ -162,42 +145,64 @@ Continuar al pago
 </div>
 
 <footer class="footer">
-<div class="footer-contenido">
+  <div class="footer-contenido">
 
-<div class="footer-col">
-<img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo">
-<p class="footer-titulo">C.D. Bustarviejo</p>
-<p class="footer-texto">Deporte y valores desde 1989</p>
-</div>
+    <div class="footer-col">
+      <img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo">
+      <p class="footer-titulo">C.D. Bustarviejo</p>
+      <p class="footer-texto">Deporte y valores desde 1989</p>
+    </div>
 
-<div class="footer-col">
-<p class="footer-titulo">Contacto</p>
-<p class="footer-texto">
-📧 cdbustarviejo@outlook.es<br>
-📍 Bustarviejo (Madrid)
-</p>
-</div>
+    <div class="footer-col">
+      <p class="footer-titulo">Enlaces</p>
+      <ul class="footer-links">
 
-</div>
+        <li><a href="https://www.cdbustarviejo.com">Inicio</a></li>
+        <li><a href="https://www.cdbustarviejo.com/el-club.html">El Club</a></li>
+        <li><a href="https://www.cdbustarviejo.com/equipos.html">Equipos</a></li>
 
-<div class="footer-copy">
-© 1989–2026 · C.D. Bustarviejo
-</div>
+<li>
+<a href="https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicData"
+target="_blank">
+Competición
+</a>
+</li>
+
+        <li><a href="https://www.cdbustarviejo.com/patrocinadores.html">Patrocinadores</a></li>
+        <li><a href="https://www.cdbustarviejo.com/aviso-legal.html">Aviso Legal</a></li>
+        <li><a href="https://www.cdbustarviejo.com/privacidad.html">Política de Privacidad</a></li>
+
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-titulo">Contacto</p>
+      <p class="footer-texto">
+        📧 <a href="mailto:cdbustarviejo@outlook.es">cdbustarviejo@outlook.es</a><br>
+        📍 Bustarviejo (Madrid)
+      </p>
+    </div>
+
+  </div>
+
+  <div class="footer-copy">
+    © 1989–2026 · C.D. Bustarviejo · Todos los derechos reservados
+  </div>
 </footer>
 
 <script>
-
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function () {
 
 const toggle=document.querySelector('.menu-toggle');
 const menu=document.querySelector('.menu');
 
+if(toggle && menu){
 toggle.addEventListener('click',function(){
 menu.classList.toggle('activo');
 });
+}
 
 });
-
 </script>
 
 </body>
