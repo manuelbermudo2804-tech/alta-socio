@@ -28,7 +28,7 @@ min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-padding:120px 20px 60px 20px;
+padding:140px 20px 80px 20px;
 }
 
 </style>
@@ -41,11 +41,11 @@ padding:120px 20px 60px 20px;
 <div class="header-contenido">
 
 <div class="logo">
-<img src="https://www.cdbustarviejo.com/img/escudo.png">
+<img src="https://www.cdbustarviejo.com/img/escudo.png" alt="Escudo C.D. Bustarviejo">
 <span>C.D. Bustarviejo</span>
 </div>
 
-<button class="menu-toggle">☰</button>
+<button class="menu-toggle" aria-label="Abrir menú">☰</button>
 
 <nav class="menu">
 
@@ -90,7 +90,7 @@ Forma parte del Club Deportivo Bustarviejo
 
 <form action="https://formspree.io/f/xlgbagbn" method="POST" class="space-y-4">
 
-<input type="text" name="nombre" required placeholder="Nombre"
+<input type="text" name="nombre" required placeholder="Nombre y apellidos"
 class="w-full bg-white rounded-xl p-3 border border-gray-300">
 
 <input type="number" name="edad" required placeholder="Edad"
@@ -105,11 +105,12 @@ class="w-full bg-white rounded-xl p-3 border border-gray-300">
 <select name="deporte" required
 class="w-full bg-white rounded-xl p-3 border border-gray-300">
 
-<option value="">Deporte</option>
+<option value="">Deporte de interés</option>
 <option>Fútbol</option>
 <option>Fútbol femenino</option>
 <option>Baloncesto</option>
 <option>Pádel</option>
+<option>Otro</option>
 
 </select>
 
@@ -120,9 +121,7 @@ class="w-full bg-white rounded-xl p-3 border border-gray-300"></textarea>
 <button
 type="submit"
 class="w-full bg-black text-white py-4 rounded-xl font-bold">
-
 Enviar
-
 </button>
 
 </form>
@@ -134,33 +133,84 @@ Enviar
 </div>
 
 <footer class="footer">
+  <div class="footer-contenido">
 
-<div class="footer-contenido">
+    <div class="footer-col">
+      <img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo" alt="Escudo">
+      <p class="footer-titulo">C.D. Bustarviejo</p>
+      <p class="footer-texto">Deporte y valores desde 1989</p>
+    </div>
 
-<div class="footer-col">
-<img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo">
-<p class="footer-titulo">C.D. Bustarviejo</p>
-<p class="footer-texto">Deporte y valores desde 1989</p>
-</div>
+    <div class="footer-col">
+      <p class="footer-titulo">Enlaces</p>
+      <ul class="footer-links">
 
-</div>
+        <li>
+          <a href="https://www.cdbustarviejo.com">Inicio</a>
+        </li>
 
-<div class="footer-copy">
-© 1989–2026 · C.D. Bustarviejo
-</div>
+        <li>
+          <a href="https://www.cdbustarviejo.com/el-club.html">El Club</a>
+        </li>
 
+        <li>
+          <a href="https://www.cdbustarviejo.com/equipos.html">Equipos</a>
+        </li>
+
+<li>
+<a href="https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicData"
+target="_blank"
+rel="noopener">
+Competición
+</a>
+</li>
+
+        <li>
+          <a href="https://www.cdbustarviejo.com/patrocinadores.html">Patrocinadores</a>
+        </li>
+
+        <li>
+          <a href="https://www.cdbustarviejo.com/aviso-legal.html">Aviso Legal</a>
+        </li>
+
+        <li>
+          <a href="https://www.cdbustarviejo.com/privacidad.html">Política de Privacidad</a>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-titulo">Contacto</p>
+      <p class="footer-texto">
+        📧
+        <a href="mailto:cdbustarviejo@outlook.es">
+        cdbustarviejo@outlook.es
+        </a>
+        <br>
+        📍 Bustarviejo (Madrid)
+      </p>
+    </div>
+
+  </div>
+
+  <div class="footer-copy">
+    © 1989–2026 · C.D. Bustarviejo · Todos los derechos reservados
+  </div>
 </footer>
 
 <script>
 
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function () {
 
 const toggle=document.querySelector('.menu-toggle');
 const menu=document.querySelector('.menu');
 
+if(toggle && menu){
 toggle.addEventListener('click',function(){
 menu.classList.toggle('activo');
 });
+}
 
 });
 
