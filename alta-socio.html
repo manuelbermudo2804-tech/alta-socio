@@ -1,168 +1,309 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazte socio · CD Bustarviejo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://cdn.tailwindcss.com"></script>
+<title>Hazte socio · C.D. Bustarviejo</title>
 
-  <style>
-    body {
-      background-image: url("fondo.jpg");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-  </style>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+font-family:'Montserrat',sans-serif;
+background-image:url("fondo.jpg");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+margin:0;
+}
+
+.header-simple{
+position:fixed;
+top:0;
+left:0;
+right:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 30px;
+background:rgba(0,0,0,0.85);
+color:white;
+z-index:10;
+}
+
+.header-simple img{
+height:36px;
+}
+
+.volver-btn{
+background:#f97316;
+color:white;
+padding:8px 14px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+font-size:14px;
+}
+
+.contenedor{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:120px 20px 40px 20px;
+}
+
+.footer{
+background:#111;
+color:white;
+padding:40px 20px;
+text-align:center;
+margin-top:60px;
+}
+
+.footer a{
+color:#ddd;
+text-decoration:none;
+}
+
+.footer-copy{
+margin-top:20px;
+font-size:13px;
+opacity:0.7;
+}
+
+</style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body>
 
-  <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/60 overflow-hidden">
+<!-- HEADER -->
+<header class="header-simple">
 
-    <!-- CABECERA -->
-    <div class="text-center p-6">
-      <img src="escudo.png" alt="Escudo CD Bustarviejo" class="w-24 mx-auto mb-3" />
-      <h1 class="text-3xl font-extrabold text-gray-800">HAZTE SOCIO</h1>
-      <p class="text-gray-600 text-sm mt-1">Club Deportivo Bustarviejo</p>
+<div style="display:flex;align-items:center;gap:10px;">
+<img src="escudo.png">
+<span style="font-weight:700;">C.D. Bustarviejo</span>
+</div>
 
-      <div class="mt-4 inline-block bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
-        Cuota anual: 25 €
-      </div>
-    </div>
+<a href="https://www.cdbustarviejo.com" class="volver-btn">
+← Volver a la web
+</a>
 
-    <!-- TEXTO -->
-    <div class="px-6 text-sm text-gray-800 space-y-4">
-      <p><strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong></p>
-      <p>
-        Aquí entrenan y compiten personas de todas las edades en un entorno de respeto,
-        igualdad y compromiso.
-      </p>
-      <p>
-        Tu apoyo nos permite seguir creciendo y construir un club abierto, integrador y con futuro.
-      </p>
-      <p class="font-semibold">Gracias por confiar en el CD Bustarviejo.</p>
-    </div>
+</header>
 
-    <!-- FORMULARIO -->
-    <div class="px-6 pb-6 pt-4">
-      <form id="form" class="space-y-4">
+<!-- CONTENIDO -->
+<div class="contenedor">
 
-        <input name="nombre_completo" required placeholder="Nombre completo"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+<div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/70 overflow-hidden">
 
-        <div class="grid grid-cols-2 gap-3">
-          <input name="dni" required placeholder="DNI"
-            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
-          <input name="telefono" required placeholder="Teléfono"
-            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
-        </div>
+<!-- CABECERA FORM -->
+<div class="text-center p-6">
 
-        <input name="email" type="email" required placeholder="Email"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+<img src="escudo.png" class="w-24 mx-auto mb-3">
 
-        <input name="direccion" placeholder="Dirección"
-          class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+<h1 class="text-3xl font-extrabold text-gray-800">
+HAZTE SOCIO
+</h1>
 
-        <div class="grid grid-cols-2 gap-3">
-          <input name="municipio" placeholder="Municipio"
-            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
-          <input name="fecha_nacimiento" type="date"
-            class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
-        </div>
+<p class="text-gray-600 text-sm mt-1">
+Club Deportivo Bustarviejo
+</p>
 
-        <!-- TIPO DE PAGO -->
-        <div class="bg-white rounded-xl p-4 border border-gray-300 text-sm space-y-2">
-          <p class="font-semibold text-gray-800">¿Cómo quieres pagar la cuota?</p>
+<div class="mt-4 inline-block bg-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold">
+Cuota anual: 25 €
+</div>
 
-          <label class="flex items-center gap-2">
-            <input type="radio" name="tipo_pago" value="unico" checked>
-            Pago solo este año (25 €)
-          </label>
+<p class="text-sm text-gray-700 mt-3">
+El pago se realiza de forma segura mediante tarjeta.
+</p>
 
-          <label class="flex items-center gap-2">
-            <input type="radio" name="tipo_pago" value="suscripcion">
-            Renovación automática anual (recomendado)
-          </label>
-        </div>
+</div>
 
-        <!-- RGPD -->
-        <div class="flex items-start gap-2 text-sm text-gray-700">
-          <input type="checkbox" required class="mt-1">
-          <label>
-            He leído y acepto la política de protección de datos.
-            Autorizo la gestión del cobro según la opción elegida.
-          </label>
-        </div>
+<!-- TEXTO -->
+<div class="px-6 text-sm text-gray-800 space-y-4">
 
-        <button
-          type="submit"
-          id="submitBtn"
-          class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
-          CONTINUAR AL PAGO
-        </button>
+<p><strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong></p>
 
-      </form>
+<p>
+Aquí entrenan y compiten personas de todas las edades en un entorno de respeto,
+igualdad y compromiso.
+</p>
 
-      <p class="text-xs text-center text-gray-600 mt-4">
-        ¿Tienes alguna duda? Escríbenos a
-        <strong>cdbustarviejo@outlook.es</strong>
-      </p>
-    </div>
-  </div>
+<p>
+Tu apoyo nos permite seguir creciendo y construir un club abierto,
+integrador y con futuro.
+</p>
 
-  <!-- JS -->
-  <script>
-    // 🔗 LINKS DE STRIPE (Payment Links)
-    const STRIPE_PAGO_UNICO   = "https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
-    const STRIPE_SUSCRIPCION  = "https://buy.stripe.com/aFaaEX1Qk4CF7yseKvfrW01";
+<p class="font-semibold">
+Gracias por confiar en el CD Bustarviejo.
+</p>
 
-    // 🔗 URL de la función Base44 que pre-registra al socio
-    // ⚠️ CAMBIA ESTO por la URL real de tu función (Dashboard → Código → Functions → publicMemberRegister)
-    const REGISTER_URL = "https://club-deportivo-bustarviejo-copy-92897991.base44.app/api/functions/publicMemberRegister";
+</div>
 
-    document.getElementById("form").addEventListener("submit", async (e) => {
-      e.preventDefault();
+<!-- FORMULARIO -->
+<div class="px-6 pb-6 pt-4">
 
-      const btn = document.getElementById("submitBtn");
-      btn.disabled = true;
-      btn.textContent = "Procesando...";
+<form id="form" class="space-y-4">
 
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
-      const tipoPago = document.querySelector('input[name="tipo_pago"]:checked').value;
+<input name="nombre_completo" required placeholder="Nombre completo"
+class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
 
-      // 1. Pre-registrar socio en Base44 (con todos los datos del formulario)
-      try {
-        await fetch(REGISTER_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            nombre_completo: data.nombre_completo,
-            dni: data.dni,
-            telefono: data.telefono,
-            email: data.email,
-            direccion: data.direccion || "",
-            municipio: data.municipio || "",
-            fecha_nacimiento: data.fecha_nacimiento || "",
-            tipo_inscripcion: "Nueva Inscripción",
-            referido_por: ""
-          })
-        });
-      } catch (err) {
-        console.error("Error pre-registro:", err);
-        // Continuamos al pago aunque falle el pre-registro
-      }
+<div class="grid grid-cols-2 gap-3">
 
-      // 2. Redirigir al Payment Link de Stripe con el email pre-rellenado
-      const stripeLink = tipoPago === "suscripcion" ? STRIPE_SUSCRIPCION : STRIPE_PAGO_UNICO;
-      const params = new URLSearchParams();
-      params.append("prefilled_email", data.email);
+<input name="dni" required placeholder="DNI"
+class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
 
-      window.location.href = stripeLink + "?" + params.toString();
-    });
-  </script>
+<input name="telefono" required placeholder="Teléfono"
+class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+
+</div>
+
+<input name="email" type="email" required placeholder="Email"
+class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+
+<input name="direccion" placeholder="Dirección"
+class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+
+<div class="grid grid-cols-2 gap-3">
+
+<input name="municipio" placeholder="Municipio"
+class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+
+<input name="fecha_nacimiento" type="date"
+class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+
+</div>
+
+<!-- TIPO DE PAGO -->
+
+<div class="bg-white rounded-xl p-4 border border-gray-300 text-sm space-y-2">
+
+<p class="font-semibold text-gray-800">
+¿Cómo quieres pagar la cuota?
+</p>
+
+<label class="flex items-center gap-2">
+
+<input type="radio" name="tipo_pago" value="unico" checked>
+Pago solo este año (25 €)
+
+</label>
+
+<label class="flex items-center gap-2">
+
+<input type="radio" name="tipo_pago" value="suscripcion">
+Renovación automática anual (recomendado)
+
+</label>
+
+</div>
+
+<!-- RGPD -->
+
+<div class="flex items-start gap-2 text-sm text-gray-700">
+
+<input type="checkbox" required class="mt-1">
+
+<label>
+He leído y acepto la política de protección de datos.
+Autorizo la gestión del cobro según la opción elegida.
+</label>
+
+</div>
+
+<button
+type="submit"
+id="submitBtn"
+class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
+
+CONTINUAR AL PAGO
+
+</button>
+
+</form>
+
+<p class="text-xs text-center text-gray-600 mt-4">
+
+¿Tienes alguna duda? Escríbenos a
+
+<strong>cdbustarviejo@outlook.es</strong>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<p style="font-weight:600;">C.D. Bustarviejo</p>
+
+<p>
+Deporte y valores desde 1989
+</p>
+
+<p style="margin-top:10px;">
+📧 <a href="mailto:cdbustarviejo@outlook.es">
+cdbustarviejo@outlook.es
+</a>
+</p>
+
+<div class="footer-copy">
+© 1989–2026 · C.D. Bustarviejo
+</div>
+
+</footer>
+
+<script>
+
+const STRIPE_PAGO_UNICO="https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
+const STRIPE_SUSCRIPCION="https://buy.stripe.com/aFaaEX1Qk4CF7yseKvfrW01";
+
+const REGISTER_URL="https://club-deportivo-bustarviejo-copy-92897991.base44.app/api/functions/publicMemberRegister";
+
+document.getElementById("form").addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const btn=document.getElementById("submitBtn");
+btn.disabled=true;
+btn.textContent="Procesando...";
+
+const formData=new FormData(e.target);
+const data=Object.fromEntries(formData.entries());
+const tipoPago=document.querySelector('input[name="tipo_pago"]:checked').value;
+
+try{
+
+await fetch(REGISTER_URL,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(data)
+});
+
+}catch(err){
+
+console.error(err);
+
+}
+
+const stripeLink=tipoPago==="suscripcion"?STRIPE_SUSCRIPCION:STRIPE_PAGO_UNICO;
+
+const params=new URLSearchParams();
+params.append("prefilled_email",data.email);
+
+window.location.href=stripeLink+"?"+params.toString();
+
+});
+
+</script>
 
 </body>
 </html>
