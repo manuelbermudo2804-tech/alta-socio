@@ -1,64 +1,163 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gracias por hacerte socio · CD Bustarviejo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gracias por hacerte socio · CD Bustarviejo</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
 
-  <style>
-    body {
-      background-image: url("fondo.jpg");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+background-image:url("img/fondo.jpg");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+</style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body>
 
-  <!-- CONTENEDOR PRINCIPAL -->
-  <div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/55 overflow-hidden text-center p-8">
+<header class="header">
+<div class="header-contenido">
 
-    <!-- ESCUDO -->
-    <img
-      src="escudo.png"
-      alt="Escudo CD Bustarviejo"
-      class="w-24 mx-auto mb-4"
-    />
+<div class="logo">
+<img src="img/escudo.png" alt="Escudo C.D. Bustarviejo">
+<span>C.D. Bustarviejo</span>
+</div>
 
-    <!-- TÍTULO -->
-    <h1 class="text-3xl font-extrabold text-gray-800 mb-3">
-      ¡Gracias de corazón!
-    </h1>
+<button class="menu-toggle" aria-label="Abrir menú">☰</button>
 
-    <!-- TEXTO PRINCIPAL -->
-    <p class="text-gray-700 text-base mb-4">
-      Gracias por hacerte socio del <strong>Club Deportivo Bustarviejo</strong>.
-    </p>
+<nav class="menu">
+<a href="index.html">Inicio</a>
+<a href="el-club.html">El Club</a>
+<a href="equipos.html">Equipos</a>
+<a href="patrocinadores.html">Patrocinadores</a>
+<a href="tienda.html">Tienda</a>
+<a href="comunicados.html">Comunicados</a>
 
-    <p class="text-gray-700 text-base mb-4">
-      Con tu apoyo estás ayudando a que nuestro club siga creciendo,
-      formando a nuestros jugadores y manteniendo vivo el deporte
-      en nuestro pueblo.
-    </p>
+<a class="btn-menu"
+target="_blank"
+href="https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicData">
+Competición
+</a>
 
-    <p class="text-gray-700 text-base mb-6">
-      Tu compromiso es muy importante para nosotros.
-      <br />
-      <strong>De verdad, gracias.</strong>
-    </p>
+<a href="area-interna.html">Área interna</a>
 
-    <!-- MENSAJE FINAL -->
-    <div class="text-sm text-gray-600">
-      En breve recibirás la confirmación de tu pago.
-      <br />
-      Nos vemos en el campo ⚽
-    </div>
+<a class="btn-menu"
+target="_blank"
+href="https://alta-socio.vercel.app/alta-socio.html?ref=9TB4YE">
+Hazte socio
+</a>
+</nav>
 
-  </div>
+</div>
+</header>
+
+<section style="min-height:70vh; display:flex; align-items:center; justify-content:center; padding:40px 20px;">
+
+<div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/70 overflow-hidden text-center p-8">
+
+<img src="img/escudo.png" alt="Escudo CD Bustarviejo" class="w-24 mx-auto mb-4">
+
+<h1 class="text-3xl font-extrabold text-gray-800 mb-3">
+¡Gracias de corazón!
+</h1>
+
+<p class="text-gray-700 text-base mb-4">
+Gracias por hacerte socio del <strong>Club Deportivo Bustarviejo</strong>.
+</p>
+
+<p class="text-gray-700 text-base mb-4">
+Con tu apoyo estás ayudando a que nuestro club siga creciendo,
+formando a nuestros jugadores y manteniendo vivo el deporte
+en nuestro pueblo.
+</p>
+
+<p class="text-gray-700 text-base mb-6">
+Tu compromiso es muy importante para nosotros.
+<br>
+<strong>De verdad, gracias.</strong>
+</p>
+
+<div class="text-sm text-gray-600">
+En breve recibirás la confirmación de tu pago.
+<br>
+Nos vemos en el campo ⚽
+</div>
+
+</div>
+
+</section>
+
+<footer class="footer">
+
+<div class="footer-contenido">
+
+<div class="footer-col">
+<img src="img/escudo.png" class="footer-logo" alt="Escudo">
+<p class="footer-titulo">C.D. Bustarviejo</p>
+<p class="footer-texto">Deporte y valores desde 1989</p>
+</div>
+
+<div class="footer-col">
+<p class="footer-titulo">Enlaces</p>
+
+<ul class="footer-links">
+<li><a href="index.html">Inicio</a></li>
+<li><a href="el-club.html">El Club</a></li>
+<li><a href="equipos.html">Equipos</a></li>
+
+<li>
+<a href="https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicData"
+target="_blank"
+rel="noopener">
+Competición
+</a>
+</li>
+
+<li><a href="patrocinadores.html">Patrocinadores</a></li>
+<li><a href="aviso-legal.html">Aviso Legal</a></li>
+<li><a href="privacidad.html">Política de Privacidad</a></li>
+</ul>
+</div>
+
+<div class="footer-col">
+<p class="footer-titulo">Contacto</p>
+<p class="footer-texto">
+📧 <a href="mailto:cdbustarviejo@outlook.es">cdbustarviejo@outlook.es</a><br>
+📍 Bustarviejo (Madrid)
+</p>
+</div>
+
+</div>
+
+<div class="footer-copy">
+© 1989–2026 · C.D. Bustarviejo · Todos los derechos reservados
+</div>
+
+</footer>
+
+<script>
+
+document.addEventListener('DOMContentLoaded',function(){
+
+const toggle=document.querySelector('.menu-toggle');
+const menu=document.querySelector('.menu');
+
+if(toggle && menu){
+toggle.addEventListener('click',function(){
+menu.classList.toggle('activo');
+});
+}
+
+});
+
+</script>
 
 </body>
 </html>
