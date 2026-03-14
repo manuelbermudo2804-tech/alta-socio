@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nuevos jugadores · C.D. Bustarviejo</title>
+<title>Juega con nosotros · CD Bustarviejo</title>
 
 <link rel="stylesheet" href="https://www.cdbustarviejo.com/css/styles.css">
 
@@ -15,15 +15,13 @@
 <style>
 
 body{
-font-family:'Montserrat',sans-serif;
 background-image:url("https://www.cdbustarviejo.com/img/fondo.jpg");
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
-margin:0;
 }
 
-.contenedor{
+.form-wrapper{
 min-height:100vh;
 display:flex;
 align-items:center;
@@ -41,11 +39,11 @@ padding:140px 20px 80px 20px;
 <div class="header-contenido">
 
 <div class="logo">
-<img src="https://www.cdbustarviejo.com/img/escudo.png" alt="Escudo C.D. Bustarviejo">
+<img src="https://www.cdbustarviejo.com/img/escudo.png">
 <span>C.D. Bustarviejo</span>
 </div>
 
-<button class="menu-toggle" aria-label="Abrir menú">☰</button>
+<button class="menu-toggle">☰</button>
 
 <nav class="menu">
 
@@ -68,9 +66,11 @@ Competición
 </div>
 </header>
 
-<div class="contenedor">
+<div class="form-wrapper">
 
-<div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-sm bg-white/70 overflow-hidden">
+<div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-sm bg-white/40 overflow-hidden">
+
+<!-- CABECERA -->
 
 <div class="text-center p-6">
 
@@ -80,30 +80,80 @@ Competición
 ¿Quieres jugar con nosotros?
 </h1>
 
-<p class="text-gray-700 text-sm mt-1">
-Forma parte del Club Deportivo Bustarviejo
+<p class="text-black/90 text-sm mt-2">
+Forma parte del Club Deportivo Bustarviejo.
 </p>
 
 </div>
 
-<div class="px-6 pb-6">
+<!-- TEXTO -->
 
-<form action="https://formspree.io/f/xlgbagbn" method="POST" class="space-y-4">
+<div class="px-6 text-sm text-black/90 space-y-2">
 
-<input type="text" name="nombre" required placeholder="Nombre y apellidos"
-class="w-full bg-white rounded-xl p-3 border border-gray-300">
+<p>
+El CD Bustarviejo nació en 1989 con el objetivo de fomentar el deporte
+y los valores en nuestro municipio.
+</p>
 
-<input type="number" name="edad" required placeholder="Edad"
-class="w-full bg-white rounded-xl p-3 border border-gray-300">
+<p>
+Contamos con secciones de <strong>fútbol, fútbol femenino,
+baloncesto y pádel</strong>, dentro de un club cercano y familiar.
+</p>
 
-<input type="tel" name="telefono" required placeholder="Teléfono"
-class="w-full bg-white rounded-xl p-3 border border-gray-300">
+<div class="pt-2 text-sm text-gray-900">
 
-<input type="email" name="email" required placeholder="Email"
-class="w-full bg-white rounded-xl p-3 border border-gray-300">
+<p class="font-semibold mb-1">Síguenos:</p>
+
+<div class="flex gap-3 text-xl">
+
+<a href="https://www.cdbustarviejo.com" target="_blank">🌍</a>
+
+<a href="https://www.instagram.com/cdbustarviejo/" target="_blank">📸</a>
+
+<a href="https://www.facebook.com/cdbustarviejo/" target="_blank">👍</a>
+
+<a href="https://x.com/CDBustarviejo" target="_blank">🐦</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FORMULARIO -->
+
+<div class="px-6 pb-6 mt-4">
+
+<p class="text-sm text-black/90 mb-4">
+
+💜 <strong>Actualmente estamos especialmente interesados en jugadoras para fútbol femenino.</strong><br>
+Si te apetece probar o informarte, escríbenos sin compromiso.
+
+</p>
+
+<form id="formulario-jugadores"
+action="https://formspree.io/f/xlgbagbn"
+method="POST"
+class="space-y-4">
+
+<input type="text" name="nombre" required
+placeholder="Nombre y apellidos"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+
+<input type="number" name="edad" required
+placeholder="Edad"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+
+<input type="tel" name="telefono" required
+placeholder="Teléfono"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+
+<input type="email" name="email" required
+placeholder="Email"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
 
 <select name="deporte" required
-class="w-full bg-white rounded-xl p-3 border border-gray-300">
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
 
 <option value="">Deporte de interés</option>
 <option>Fútbol</option>
@@ -114,17 +164,89 @@ class="w-full bg-white rounded-xl p-3 border border-gray-300">
 
 </select>
 
-<textarea name="mensaje" rows="3"
-placeholder="Cuéntanos algo más"
-class="w-full bg-white rounded-xl p-3 border border-gray-300"></textarea>
+<select name="interes_futbol_femenino"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+
+<option value="">¿Te interesa fútbol femenino?</option>
+<option>Sí</option>
+<option>No</option>
+<option>No aplica</option>
+
+</select>
+
+<select name="categoria"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+
+<option value="">Categoría aproximada</option>
+<option>Escuela / Infantil</option>
+<option>Cadete</option>
+<option>Juvenil</option>
+<option>Senior</option>
+<option>No lo sé</option>
+
+</select>
+
+<select name="experiencia"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+
+<option value="">Experiencia aproximada</option>
+<option>Nunca he jugado en club</option>
+<option>He jugado a nivel escolar</option>
+<option>He jugado federado</option>
+<option>Juego actualmente</option>
+
+</select>
+
+<select name="disponibilidad"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300">
+
+<option value="">Disponibilidad</option>
+<option>Entre semana</option>
+<option>Solo fines de semana</option>
+<option>A concretar</option>
+
+</select>
+
+<textarea name="mensaje"
+rows="3"
+placeholder="Cuéntanos algo más (opcional)"
+class="w-full bg-white/90 rounded-xl p-3 border border-gray-300"></textarea>
+
+<div class="flex items-start gap-2 text-xs text-gray-900">
+
+<input type="checkbox" required class="mt-1">
+
+<label>
+Acepto que mis datos se utilicen únicamente para que el
+Club Deportivo Bustarviejo se ponga en contacto conmigo.
+</label>
+
+</div>
 
 <button
 type="submit"
-class="w-full bg-black text-white py-4 rounded-xl font-bold">
-Enviar
+class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
+
+ENVIAR
+
 </button>
 
 </form>
+
+<div id="mensaje-exito" class="hidden text-center mt-6">
+
+<img src="https://www.cdbustarviejo.com/img/escudo.png" class="w-20 mx-auto mb-4">
+
+<h2 class="text-2xl font-extrabold text-gray-900 mb-3">
+¡Gracias por contactar!
+</h2>
+
+<p class="text-black/90">
+Hemos recibido tus datos correctamente.<br>
+Nos pondremos en contacto contigo lo antes posible.
+</p>
+
+</div>
 
 </div>
 
@@ -133,75 +255,68 @@ Enviar
 </div>
 
 <footer class="footer">
-  <div class="footer-contenido">
 
-    <div class="footer-col">
-      <img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo" alt="Escudo">
-      <p class="footer-titulo">C.D. Bustarviejo</p>
-      <p class="footer-texto">Deporte y valores desde 1989</p>
-    </div>
+<div class="footer-contenido">
 
-    <div class="footer-col">
-      <p class="footer-titulo">Enlaces</p>
-      <ul class="footer-links">
+<div class="footer-col">
 
-        <li>
-          <a href="https://www.cdbustarviejo.com">Inicio</a>
-        </li>
+<img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo">
 
-        <li>
-          <a href="https://www.cdbustarviejo.com/el-club.html">El Club</a>
-        </li>
+<p class="footer-titulo">C.D. Bustarviejo</p>
 
-        <li>
-          <a href="https://www.cdbustarviejo.com/equipos.html">Equipos</a>
-        </li>
+<p class="footer-texto">
+Deporte y valores desde 1989
+</p>
+
+</div>
+
+<div class="footer-col">
+
+<p class="footer-titulo">Enlaces</p>
+
+<ul class="footer-links">
+
+<li><a href="https://www.cdbustarviejo.com">Inicio</a></li>
+<li><a href="https://www.cdbustarviejo.com/el-club.html">El Club</a></li>
+<li><a href="https://www.cdbustarviejo.com/equipos.html">Equipos</a></li>
 
 <li>
 <a href="https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicData"
-target="_blank"
-rel="noopener">
+target="_blank">
 Competición
 </a>
 </li>
 
-        <li>
-          <a href="https://www.cdbustarviejo.com/patrocinadores.html">Patrocinadores</a>
-        </li>
+<li><a href="https://www.cdbustarviejo.com/patrocinadores.html">Patrocinadores</a></li>
+<li><a href="https://www.cdbustarviejo.com/aviso-legal.html">Aviso Legal</a></li>
+<li><a href="https://www.cdbustarviejo.com/privacidad.html">Política de Privacidad</a></li>
 
-        <li>
-          <a href="https://www.cdbustarviejo.com/aviso-legal.html">Aviso Legal</a>
-        </li>
+</ul>
 
-        <li>
-          <a href="https://www.cdbustarviejo.com/privacidad.html">Política de Privacidad</a>
-        </li>
+</div>
 
-      </ul>
-    </div>
+<div class="footer-col">
 
-    <div class="footer-col">
-      <p class="footer-titulo">Contacto</p>
-      <p class="footer-texto">
-        📧
-        <a href="mailto:cdbustarviejo@outlook.es">
-        cdbustarviejo@outlook.es
-        </a>
-        <br>
-        📍 Bustarviejo (Madrid)
-      </p>
-    </div>
+<p class="footer-titulo">Contacto</p>
 
-  </div>
+<p class="footer-texto">
+📧 <a href="mailto:cdbustarviejo@outlook.es">cdbustarviejo@outlook.es</a><br>
+📍 Bustarviejo (Madrid)
+</p>
 
-  <div class="footer-copy">
-    © 1989–2026 · C.D. Bustarviejo · Todos los derechos reservados
-  </div>
+</div>
+
+</div>
+
+<div class="footer-copy">
+© 1989–2026 · C.D. Bustarviejo · Todos los derechos reservados
+</div>
+
 </footer>
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded',function(){
 
 const toggle=document.querySelector('.menu-toggle');
 const menu=document.querySelector('.menu');
@@ -211,6 +326,45 @@ toggle.addEventListener('click',function(){
 menu.classList.toggle('activo');
 });
 }
+
+});
+
+const form = document.getElementById("formulario-jugadores");
+const mensaje = document.getElementById("mensaje-exito");
+
+const BASE44_WEBHOOK = "https://club-deportivo-bustarviejo-copy-92897991.base44.app/api/functions/receiveContactForm";
+
+form.addEventListener("submit", async function (e) {
+
+e.preventDefault();
+
+const datos = new FormData(form);
+
+fetch(form.action,{
+method:form.method,
+body:datos,
+headers:{Accept:"application/json"}
+});
+
+fetch(BASE44_WEBHOOK,{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({
+nombre:datos.get("nombre"),
+edad:datos.get("edad"),
+telefono:datos.get("telefono"),
+email:datos.get("email"),
+deporte:datos.get("deporte"),
+futbol_femenino:datos.get("interes_futbol_femenino"),
+categoria:datos.get("categoria"),
+experiencia:datos.get("experiencia"),
+disponibilidad:datos.get("disponibilidad"),
+mensaje:datos.get("mensaje")
+})
+});
+
+form.classList.add("hidden");
+mensaje.classList.remove("hidden");
 
 });
 
