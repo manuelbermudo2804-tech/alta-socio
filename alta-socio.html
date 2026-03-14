@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
+<title>Hazte socio · CD Bustarviejo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hazte socio · C.D. Bustarviejo</title>
+<link rel="stylesheet" href="https://www.cdbustarviejo.com/css/styles.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 
 body{
 font-family:'Montserrat',sans-serif;
-background-image:url("fondo.jpg");
+background-image:url("https://www.cdbustarviejo.com/img/fondo.jpg");
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
@@ -56,26 +59,8 @@ justify-content:center;
 padding:120px 20px 40px 20px;
 }
 
-.footer{
-background:#111;
-color:white;
-padding:40px 20px;
-text-align:center;
-margin-top:60px;
-}
-
-.footer a{
-color:#ddd;
-text-decoration:none;
-}
-
-.footer-copy{
-margin-top:20px;
-font-size:13px;
-opacity:0.7;
-}
-
 </style>
+
 </head>
 
 <body>
@@ -84,7 +69,7 @@ opacity:0.7;
 <header class="header-simple">
 
 <div style="display:flex;align-items:center;gap:10px;">
-<img src="escudo.png">
+<img src="https://www.cdbustarviejo.com/img/escudo.png">
 <span style="font-weight:700;">C.D. Bustarviejo</span>
 </div>
 
@@ -97,18 +82,18 @@ opacity:0.7;
 <!-- CONTENIDO -->
 <div class="contenedor">
 
-<div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-md bg-white/70 overflow-hidden">
+<div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-sm bg-white/60 overflow-hidden">
 
-<!-- CABECERA FORM -->
+<!-- CABECERA -->
 <div class="text-center p-6">
 
-<img src="escudo.png" class="w-24 mx-auto mb-3">
+<img src="https://www.cdbustarviejo.com/img/escudo.png" class="w-24 mx-auto mb-3">
 
-<h1 class="text-3xl font-extrabold text-gray-800">
+<h1 class="text-3xl font-extrabold text-gray-900">
 HAZTE SOCIO
 </h1>
 
-<p class="text-gray-600 text-sm mt-1">
+<p class="text-gray-700 text-sm mt-1">
 Club Deportivo Bustarviejo
 </p>
 
@@ -239,26 +224,48 @@ CONTINUAR AL PAGO
 
 </div>
 
-<!-- FOOTER -->
-
+<!-- FOOTER DEL CLUB -->
 <footer class="footer">
+  <div class="footer-contenido">
 
-<p style="font-weight:600;">C.D. Bustarviejo</p>
+    <div class="footer-col">
+      <img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo">
+      <p class="footer-titulo">C.D. Bustarviejo</p>
+      <p class="footer-texto">Deporte y valores desde 1989</p>
+    </div>
 
-<p>
-Deporte y valores desde 1989
-</p>
+    <div class="footer-col">
+      <p class="footer-titulo">Enlaces</p>
+      <ul class="footer-links">
+        <li><a href="https://www.cdbustarviejo.com">Inicio</a></li>
+        <li><a href="https://www.cdbustarviejo.com/el-club.html">El Club</a></li>
+        <li><a href="https://www.cdbustarviejo.com/equipos.html">Equipos</a></li>
 
-<p style="margin-top:10px;">
-📧 <a href="mailto:cdbustarviejo@outlook.es">
-cdbustarviejo@outlook.es
+<li>
+<a href="https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicData" target="_blank">
+Competición
 </a>
-</p>
+</li>
 
-<div class="footer-copy">
-© 1989–2026 · C.D. Bustarviejo
-</div>
+        <li><a href="https://www.cdbustarviejo.com/patrocinadores.html">Patrocinadores</a></li>
+        <li><a href="https://www.cdbustarviejo.com/aviso-legal.html">Aviso Legal</a></li>
+        <li><a href="https://www.cdbustarviejo.com/privacidad.html">Política de Privacidad</a></li>
+      </ul>
+    </div>
 
+    <div class="footer-col">
+      <p class="footer-titulo">Contacto</p>
+      <p class="footer-texto">
+        📧 <a href="mailto:cdbustarviejo@outlook.es">cdbustarviejo@outlook.es</a><br>
+        📍 Bustarviejo (Madrid)
+      </p>
+    </div>
+
+  </div>
+
+  <div class="footer-copy">
+    © 1989–2026 · C.D. Bustarviejo · Todos los derechos reservados
+  </div>
 </footer>
 
 <script>
