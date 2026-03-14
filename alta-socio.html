@@ -3,8 +3,8 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Hazte socio · CD Bustarviejo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hazte socio · C.D. Bustarviejo</title>
 
 <link rel="stylesheet" href="https://www.cdbustarviejo.com/css/styles.css">
 
@@ -23,40 +23,12 @@ background-attachment:fixed;
 margin:0;
 }
 
-.header-simple{
-position:fixed;
-top:0;
-left:0;
-right:0;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 30px;
-background:rgba(0,0,0,0.85);
-color:white;
-z-index:10;
-}
-
-.header-simple img{
-height:36px;
-}
-
-.volver-btn{
-background:#f97316;
-color:white;
-padding:8px 14px;
-border-radius:8px;
-text-decoration:none;
-font-weight:600;
-font-size:14px;
-}
-
 .contenedor{
 min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-padding:120px 20px 40px 20px;
+padding:120px 20px 60px 20px;
 }
 
 </style>
@@ -65,32 +37,47 @@ padding:120px 20px 40px 20px;
 
 <body>
 
-<!-- HEADER -->
-<header class="header-simple">
+<header class="header">
+<div class="header-contenido">
 
-<div style="display:flex;align-items:center;gap:10px;">
+<div class="logo">
 <img src="https://www.cdbustarviejo.com/img/escudo.png">
-<span style="font-weight:700;">C.D. Bustarviejo</span>
+<span>C.D. Bustarviejo</span>
 </div>
 
-<a href="https://www.cdbustarviejo.com" class="volver-btn">
-← Volver a la web
+<button class="menu-toggle">☰</button>
+
+<nav class="menu">
+
+<a href="https://www.cdbustarviejo.com">Inicio</a>
+<a href="https://www.cdbustarviejo.com/el-club.html">El Club</a>
+<a href="https://www.cdbustarviejo.com/equipos.html">Equipos</a>
+<a href="https://www.cdbustarviejo.com/patrocinadores.html">Patrocinadores</a>
+<a href="https://www.cdbustarviejo.com/tienda.html">Tienda</a>
+<a href="https://www.cdbustarviejo.com/comunicados.html">Comunicados</a>
+
+<a class="btn-menu" target="_blank"
+href="https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicData">
+Competición
 </a>
 
+<a href="https://www.cdbustarviejo.com/area-interna.html">Área interna</a>
+
+</nav>
+
+</div>
 </header>
 
-<!-- CONTENIDO -->
 <div class="contenedor">
 
-<div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-sm bg-white/60 overflow-hidden">
+<div class="w-full max-w-md rounded-3xl shadow-2xl backdrop-blur-sm bg-white/70 overflow-hidden">
 
-<!-- CABECERA -->
 <div class="text-center p-6">
 
 <img src="https://www.cdbustarviejo.com/img/escudo.png" class="w-24 mx-auto mb-3">
 
 <h1 class="text-3xl font-extrabold text-gray-900">
-HAZTE SOCIO
+Hazte socio
 </h1>
 
 <p class="text-gray-700 text-sm mt-1">
@@ -101,212 +88,113 @@ Club Deportivo Bustarviejo
 Cuota anual: 25 €
 </div>
 
-<p class="text-sm text-gray-700 mt-3">
-El pago se realiza de forma segura mediante tarjeta.
-</p>
-
 </div>
 
-<!-- TEXTO -->
 <div class="px-6 text-sm text-gray-800 space-y-4">
 
 <p><strong>Ser socio del CD Bustarviejo es apostar por el deporte de nuestro pueblo.</strong></p>
 
 <p>
-Aquí entrenan y compiten personas de todas las edades en un entorno de respeto,
-igualdad y compromiso.
-</p>
-
-<p>
-Tu apoyo nos permite seguir creciendo y construir un club abierto,
-integrador y con futuro.
-</p>
-
-<p class="font-semibold">
-Gracias por confiar en el CD Bustarviejo.
+Tu apoyo nos permite seguir creciendo y desarrollar el deporte
+para niños, jóvenes y adultos.
 </p>
 
 </div>
 
-<!-- FORMULARIO -->
 <div class="px-6 pb-6 pt-4">
 
 <form id="form" class="space-y-4">
 
 <input name="nombre_completo" required placeholder="Nombre completo"
-class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+class="w-full bg-white rounded-xl p-3 border border-gray-300">
 
 <div class="grid grid-cols-2 gap-3">
 
 <input name="dni" required placeholder="DNI"
-class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+class="bg-white rounded-xl p-3 border border-gray-300">
 
 <input name="telefono" required placeholder="Teléfono"
-class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
+class="bg-white rounded-xl p-3 border border-gray-300">
 
 </div>
 
 <input name="email" type="email" required placeholder="Email"
-class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
-
-<input name="direccion" placeholder="Dirección"
-class="w-full bg-white rounded-xl p-3 border border-gray-300 outline-none" />
-
-<div class="grid grid-cols-2 gap-3">
-
-<input name="municipio" placeholder="Municipio"
-class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
-
-<input name="fecha_nacimiento" type="date"
-class="bg-white rounded-xl p-3 border border-gray-300 outline-none" />
-
-</div>
-
-<!-- TIPO DE PAGO -->
+class="w-full bg-white rounded-xl p-3 border border-gray-300">
 
 <div class="bg-white rounded-xl p-4 border border-gray-300 text-sm space-y-2">
 
 <p class="font-semibold text-gray-800">
-¿Cómo quieres pagar la cuota?
+Tipo de pago
 </p>
 
 <label class="flex items-center gap-2">
-
 <input type="radio" name="tipo_pago" value="unico" checked>
-Pago solo este año (25 €)
-
+Pago único anual
 </label>
 
 <label class="flex items-center gap-2">
-
 <input type="radio" name="tipo_pago" value="suscripcion">
-Renovación automática anual (recomendado)
-
+Renovación automática
 </label>
 
 </div>
 
-<!-- RGPD -->
-
 <div class="flex items-start gap-2 text-sm text-gray-700">
-
-<input type="checkbox" required class="mt-1">
-
-<label>
-He leído y acepto la política de protección de datos.
-Autorizo la gestión del cobro según la opción elegida.
-</label>
-
+<input type="checkbox" required>
+<label>Acepto la política de protección de datos</label>
 </div>
 
 <button
 type="submit"
 id="submitBtn"
-class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition">
+class="w-full bg-black text-white py-4 rounded-xl font-bold">
 
-CONTINUAR AL PAGO
+Continuar al pago
 
 </button>
 
 </form>
 
-<p class="text-xs text-center text-gray-600 mt-4">
-
-¿Tienes alguna duda? Escríbenos a
-
-<strong>cdbustarviejo@outlook.es</strong>
-
-</p>
-
 </div>
 
 </div>
 
 </div>
 
-<!-- FOOTER DEL CLUB -->
 <footer class="footer">
-  <div class="footer-contenido">
+<div class="footer-contenido">
 
-    <div class="footer-col">
-      <img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo">
-      <p class="footer-titulo">C.D. Bustarviejo</p>
-      <p class="footer-texto">Deporte y valores desde 1989</p>
-    </div>
+<div class="footer-col">
+<img src="https://www.cdbustarviejo.com/img/escudo.png" class="footer-logo">
+<p class="footer-titulo">C.D. Bustarviejo</p>
+<p class="footer-texto">Deporte y valores desde 1989</p>
+</div>
 
-    <div class="footer-col">
-      <p class="footer-titulo">Enlaces</p>
-      <ul class="footer-links">
-        <li><a href="https://www.cdbustarviejo.com">Inicio</a></li>
-        <li><a href="https://www.cdbustarviejo.com/el-club.html">El Club</a></li>
-        <li><a href="https://www.cdbustarviejo.com/equipos.html">Equipos</a></li>
+<div class="footer-col">
+<p class="footer-titulo">Contacto</p>
+<p class="footer-texto">
+📧 cdbustarviejo@outlook.es<br>
+📍 Bustarviejo (Madrid)
+</p>
+</div>
 
-<li>
-<a href="https://base44.app/api/apps/6992c6be619d2da592897991/functions/publicData" target="_blank">
-Competición
-</a>
-</li>
+</div>
 
-        <li><a href="https://www.cdbustarviejo.com/patrocinadores.html">Patrocinadores</a></li>
-        <li><a href="https://www.cdbustarviejo.com/aviso-legal.html">Aviso Legal</a></li>
-        <li><a href="https://www.cdbustarviejo.com/privacidad.html">Política de Privacidad</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <p class="footer-titulo">Contacto</p>
-      <p class="footer-texto">
-        📧 <a href="mailto:cdbustarviejo@outlook.es">cdbustarviejo@outlook.es</a><br>
-        📍 Bustarviejo (Madrid)
-      </p>
-    </div>
-
-  </div>
-
-  <div class="footer-copy">
-    © 1989–2026 · C.D. Bustarviejo · Todos los derechos reservados
-  </div>
+<div class="footer-copy">
+© 1989–2026 · C.D. Bustarviejo
+</div>
 </footer>
 
 <script>
 
-const STRIPE_PAGO_UNICO="https://buy.stripe.com/28E6oH3Ys3yBaKEdGrfrW00";
-const STRIPE_SUSCRIPCION="https://buy.stripe.com/aFaaEX1Qk4CF7yseKvfrW01";
+document.addEventListener('DOMContentLoaded',function(){
 
-const REGISTER_URL="https://club-deportivo-bustarviejo-copy-92897991.base44.app/api/functions/publicMemberRegister";
+const toggle=document.querySelector('.menu-toggle');
+const menu=document.querySelector('.menu');
 
-document.getElementById("form").addEventListener("submit",async(e)=>{
-
-e.preventDefault();
-
-const btn=document.getElementById("submitBtn");
-btn.disabled=true;
-btn.textContent="Procesando...";
-
-const formData=new FormData(e.target);
-const data=Object.fromEntries(formData.entries());
-const tipoPago=document.querySelector('input[name="tipo_pago"]:checked').value;
-
-try{
-
-await fetch(REGISTER_URL,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(data)
+toggle.addEventListener('click',function(){
+menu.classList.toggle('activo');
 });
-
-}catch(err){
-
-console.error(err);
-
-}
-
-const stripeLink=tipoPago==="suscripcion"?STRIPE_SUSCRIPCION:STRIPE_PAGO_UNICO;
-
-const params=new URLSearchParams();
-params.append("prefilled_email",data.email);
-
-window.location.href=stripeLink+"?"+params.toString();
 
 });
 
