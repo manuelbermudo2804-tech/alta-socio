@@ -293,6 +293,54 @@ const STRIPE_SUSCRIPCION="https://buy.stripe.com/aFaaEX1Qk4CF7yseKvfrW01";
 
 const REGISTER_URL="https://club-deportivo-bustarviejo-copy-92897991.base44.app/api/functions/publicMemberRegister";
 
+// ===== VALIDACIÓN BOTÓN =====
+
+const form = document.getElementById("form");
+const submitBtn = document.getElementById("submitBtn");
+
+submitBtn.disabled = true;
+submitBtn.style.opacity = "0.5";
+submitBtn.style.cursor = "not-allowed";
+
+const inputs = form.querySelectorAll("input");
+
+function validarFormulario(){
+
+let valido = true;
+
+inputs.forEach(input => {
+
+if(input.type === "checkbox"){
+if(!input.checked){
+valido = false;
+}
+}
+
+else if(input.hasAttribute("required")){
+if(!input.value.trim()){
+valido = false;
+}
+}
+
+});
+
+if(valido){
+submitBtn.disabled = false;
+submitBtn.style.opacity = "1";
+submitBtn.style.cursor = "pointer";
+}else{
+submitBtn.disabled = true;
+submitBtn.style.opacity = "0.5";
+submitBtn.style.cursor = "not-allowed";
+}
+
+}
+
+inputs.forEach(input=>{
+input.addEventListener("input", validarFormulario);
+input.addEventListener("change", validarFormulario);
+});
+
 document.getElementById("form").addEventListener("submit",async(e)=>{
 
 e.preventDefault();
