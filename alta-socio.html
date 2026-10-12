@@ -37,6 +37,55 @@ justify-content:center;
 padding:140px 20px 80px 20px;
 }
 
+
+/* Mejora estética suave compartida con la web del club */
+:root {
+  --club-orange: #f58220;
+  --club-black: #171717;
+  --club-radius: 1.15rem;
+}
+html { scroll-padding-top: 90px; }
+body { color: #242424; }
+.header, .footer { font-family: 'Montserrat', sans-serif; }
+.form-wrapper > div {
+  border: 1px solid rgba(23,23,23,.08);
+  box-shadow: 0 18px 48px rgba(0,0,0,.16);
+}
+.form-wrapper h1, .form-wrapper h2, .form-wrapper h3 { letter-spacing: -.025em; }
+.form-wrapper input:not([type="checkbox"]):not([type="radio"]),
+.form-wrapper select, .form-wrapper textarea {
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.form-wrapper input:not([type="checkbox"]):not([type="radio"]):focus,
+.form-wrapper select:focus, .form-wrapper textarea:focus {
+  outline: 2px solid transparent;
+  border-color: var(--club-orange);
+  box-shadow: 0 0 0 3px rgba(245,130,32,.18);
+}
+.form-wrapper button[type="submit"], .form-wrapper a[class*="bg-orange"] {
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.form-wrapper button[type="submit"]:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(0,0,0,.14);
+}
+.form-wrapper button:focus-visible, .form-wrapper a:focus-visible,
+.header a:focus-visible, .menu-toggle:focus-visible {
+  outline: 3px solid var(--club-orange);
+  outline-offset: 3px;
+}
+.form-wrapper table { border-collapse: separate; border-spacing: 0; }
+.form-wrapper th { letter-spacing: .01em; }
+.form-wrapper tbody tr:nth-child(even) { background-color: rgba(245,130,32,.045); }
+@media (max-width: 640px) {
+  .form-wrapper { padding: 105px 12px 36px; }
+  .form-wrapper > div { border-radius: 1.1rem; }
+  .form-wrapper h1 { line-height: 1.12; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form-wrapper *, .header * { transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
 </style>
 
 </head>
