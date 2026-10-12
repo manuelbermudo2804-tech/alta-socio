@@ -167,14 +167,14 @@ class="bg-white rounded-xl p-3 border border-gray-300 outline-none w-full">
 ¿Cómo quieres pagar la cuota?
 </p>
 
-<label class="flex items-center gap-2">
+<label class="flex items-start gap-2">
 <input type="radio" name="tipo_pago" value="unico" checked>
-Pago solo este año (25 €)
+<span>Pago solo este año (25 €)<span class="block text-gray-500 text-xs mt-1">Un único pago, sin renovación automática.</span></span>
 </label>
 
-<label class="flex items-center gap-2">
+<label class="flex items-start gap-2">
 <input type="radio" name="tipo_pago" value="suscripcion">
-Renovación automática anual (recomendado)
+<span>Renovación automática anual (recomendado)<span class="block text-gray-500 text-xs mt-1">25 € al año. La cuota se renovará automáticamente cada año hasta que canceles la suscripción.</span></span>
 </label>
 
 </div>
