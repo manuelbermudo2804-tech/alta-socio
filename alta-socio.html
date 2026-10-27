@@ -86,6 +86,58 @@ body { color: #242424; }
   .form-wrapper *, .header * { transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 
+
+/* HAZTE SOCIO · CÁLIDO, CLARO Y DIFERENCIADO */
+.pagina-alta-socio .form-wrapper > div {
+  background: rgba(255,255,255,.98);
+  border: 1px solid rgba(245,124,0,.28);
+  border-top: 6px solid #f57c00;
+  box-shadow: 0 24px 70px rgba(0,0,0,.25);
+}
+.pagina-alta-socio .form-wrapper > div > div:first-child {
+  padding-top: 28px;
+  padding-bottom: 24px;
+  background: linear-gradient(135deg, #fff7ed 0%, #fff 75%);
+  border-bottom: 1px solid #f3dfc9;
+}
+.pagina-alta-socio .form-wrapper h1 {
+  color: #171717;
+  letter-spacing: .025em;
+}
+.pagina-alta-socio .form-wrapper .text-gray-600,
+.pagina-alta-socio .form-wrapper .text-gray-700,
+.pagina-alta-socio .form-wrapper .text-gray-800 {
+  color: #353535;
+}
+.pagina-alta-socio .form-wrapper input:not([type="checkbox"]):not([type="radio"]),
+.pagina-alta-socio .form-wrapper select,
+.pagina-alta-socio .form-wrapper textarea {
+  background-color: #fff;
+  color: #202020;
+  border-color: #c8c8c8;
+  min-height: 46px;
+}
+.pagina-alta-socio .form-wrapper input::placeholder {
+  color: #686868;
+  opacity: 1;
+}
+.pagina-alta-socio .form-wrapper button[type="submit"] {
+  background: #f57c00;
+  color: #171717;
+  font-weight: 800;
+  min-height: 48px;
+}
+.pagina-alta-socio .form-wrapper button[type="submit"]:hover {
+  background: #e96e00;
+}
+.pagina-alta-socio .form-wrapper label {
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .pagina-alta-socio .form-wrapper > div { border-radius: 16px; }
+  .pagina-alta-socio .form-wrapper > div > div:first-child { padding: 22px 18px; }
+}
+
 </style>
 
 </head>
