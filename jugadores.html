@@ -90,19 +90,19 @@ body { color: #242424; }
 
 </head>
 
-<body>
+<body class="pagina-alta-jugadores">
 
 <header class="header">
 <div class="header-contenido">
 
 <div class="logo">
-<img src="https://www.cdbustarviejo.com/img/escudo.png">
+<img src="https://www.cdbustarviejo.com/img/escudo.png" alt="Escudo del C.D. Bustarviejo" width="48" height="48">
 <span>C.D. Bustarviejo</span>
 </div>
 
-<button class="menu-toggle">☰</button>
+<button class="menu-toggle" type="button" aria-label="Abrir menú de navegación" aria-controls="menu-principal" aria-expanded="false">☰</button>
 
-<nav class="menu">
+<nav class="menu" id="menu-principal">
 <a href="https://www.cdbustarviejo.com">Inicio</a>
 <a href="https://www.cdbustarviejo.com/el-club.html">El Club</a>
 <a href="https://www.cdbustarviejo.com/equipos.html">Equipos</a>
@@ -978,7 +978,9 @@ const menu=document.querySelector('.menu');
 
 if(toggle && menu){
 toggle.addEventListener('click',function(){
-menu.classList.toggle('activo');
+const abierto = menu.classList.toggle('activo');
+toggle.setAttribute('aria-expanded', String(abierto));
+toggle.setAttribute('aria-label', abierto ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
 });
 }
 
