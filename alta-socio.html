@@ -456,36 +456,45 @@ const data=Object.fromEntries(formData.entries());
 
 const tipoPago=document.querySelector('input[name="tipo_pago"]:checked').value;
 
-try{
+try {
+  const response = await fetch(REGISTER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      nombre_completo: data.nombre_completo,
+      dni: data.dni,
+      telefono: data.telefono,
+      email: data.email,
+      direccion: data.direccion || "",
+      municipio: data.municipio || "",
+      fecha_nacimiento: data.fecha_nacimiento || "",
+      tipo_inscripcion: "Nueva Inscripción",
+      referido_por: ""
+    })
+  });
 
-await fetch(REGISTER_URL,{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify({
-nombre_completo:data.nombre_completo,
-dni:data.dni,
-telefono:data.telefono,
-email:data.email,
-direccion:data.direccion || "",
-municipio:data.municipio || "",
-fecha_nacimiento:data.fecha_nacimiento || "",
-tipo_inscripcion:"Nueva Inscripción",
-referido_por:""
-})
-});
+  if (!response.ok) {
+    throw new Error("El servicio de alta ha respondido con error: " + response.status);
+  }
 
-}catch(err){
-console.error("Error pre-registro:",err);
+  const stripeLink = tipoPago === "suscripcion" ? STRIPE_SUSCRIPCION : STRIPE_PAGO_UNICO;
+  const params = new URLSearchParams();
+  params.append("prefilled_email", data.email);
+  window.location.href = stripeLink + "?" + params.toString();
+} catch (err) {
+  console.error("No se pudo registrar la preinscripción:", err);
+  let errorNotice = document.getElementById("mensaje-error-alta");
+  if (!errorNotice) {
+    errorNotice = document.createElement("p");
+    errorNotice.id = "mensaje-error-alta";
+    errorNotice.setAttribute("role", "alert");
+    errorNotice.className = "mt-4 rounded-xl border border-red-300 bg-red-50 p-3 text-sm text-red-900";
+    btn.insertAdjacentElement("afterend", errorNotice);
+  }
+  errorNotice.textContent = "No hemos podido registrar tu solicitud, así que no te enviaremos todavía al pago. Inténtalo de nuevo o escríbenos a info@cdbustarviejo.com.";
+  btn.disabled = false;
+  btn.textContent = "CONTINUAR AL PAGO";
 }
-
-const stripeLink=tipoPago==="suscripcion"
-?STRIPE_SUSCRIPCION
-:STRIPE_PAGO_UNICO;
-
-const params=new URLSearchParams();
-params.append("prefilled_email",data.email);
-
-window.location.href=stripeLink+"?"+params.toString();
 
 });
 
