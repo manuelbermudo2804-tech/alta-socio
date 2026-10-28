@@ -913,8 +913,7 @@ class="w-full bg-white/90 rounded-xl p-3 border border-gray-300"></textarea>
 <input type="checkbox" required class="mt-1">
 
 <label>
-Acepto que mis datos se utilicen únicamente para que el
-Club Deportivo Bustarviejo se ponga en contacto conmigo.
+He leído la <a href="https://www.cdbustarviejo.com/privacidad.html" target="_blank" rel="noopener" class="underline font-semibold">Política de Privacidad</a> y acepto que el Club Deportivo Bustarviejo trate mis datos para responder a esta solicitud.
 </label>
 
 </div>
@@ -1030,41 +1029,66 @@ toggle.setAttribute('aria-label', abierto ? 'Cerrar menú de navegación' : 'Abr
 
 const form = document.getElementById("formulario-jugadores");
 const mensaje = document.getElementById("mensaje-exito");
+const submitButton = form.querySelector('button[type="submit"]');
 
 const BASE44_WEBHOOK = "https://club-deportivo-bustarviejo-copy-92897991.base44.app/api/functions/receiveContactForm";
 
 form.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  if (!form.reportValidity()) return;
 
-e.preventDefault();
+  const datos = new FormData(form);
+  const payload = {
+    nombre: datos.get("nombre"),
+    edad: datos.get("edad"),
+    telefono: datos.get("telefono"),
+    email: datos.get("email"),
+    deporte: datos.get("deporte"),
+    futbol_femenino: datos.get("interes_futbol_femenino"),
+    categoria: datos.get("categoria"),
+    experiencia: datos.get("experiencia"),
+    disponibilidad: datos.get("disponibilidad"),
+    mensaje: datos.get("mensaje")
+  };
 
-const datos = new FormData(form);
+  const originalText = submitButton.textContent;
+  submitButton.disabled = true;
+  submitButton.textContent = "Enviando…";
 
-fetch(form.action,{
-method:form.method,
-body:datos,
-headers:{Accept:"application/json"}
-});
+  try {
+    const [formspreeResponse, base44Response] = await Promise.all([
+      fetch(form.action, {
+        method: form.method,
+        body: datos,
+        headers: { Accept: "application/json" }
+      }),
+      fetch(BASE44_WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+    ]);
 
-fetch(BASE44_WEBHOOK,{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify({
-nombre:datos.get("nombre"),
-edad:datos.get("edad"),
-telefono:datos.get("telefono"),
-email:datos.get("email"),
-deporte:datos.get("deporte"),
-futbol_femenino:datos.get("interes_futbol_femenino"),
-categoria:datos.get("categoria"),
-experiencia:datos.get("experiencia"),
-disponibilidad:datos.get("disponibilidad"),
-mensaje:datos.get("mensaje")
-})
-});
+    if (!formspreeResponse.ok || !base44Response.ok) {
+      throw new Error("Uno de los servicios no ha confirmado la recepción.");
+    }
 
-form.classList.add("hidden");
-mensaje.classList.remove("hidden");
-
+    form.classList.add("hidden");
+    mensaje.classList.remove("hidden");
+  } catch (error) {
+    console.error("No se pudo confirmar el envío del formulario:", error);
+    let errorNotice = document.getElementById("mensaje-error-envio");
+    if (!errorNotice) {
+      errorNotice = document.createElement("p");
+      errorNotice.id = "mensaje-error-envio";
+      errorNotice.setAttribute("role", "alert");
+      errorNotice.className = "mt-4 rounded-xl border border-red-300 bg-red-50 p-3 text-sm text-red-900";
+      form.appendChild(errorNotice);
+    }
+    errorNotice.textContent = "No hemos podido confirmar el envío. Comprueba tu conexión e inténtalo de nuevo. Si el problema continúa, escríbenos a info@cdbustarviejo.com.";
+    submitButton.disabled = false;
+    submitButton.textContent = originalText;
+  }
 });
 
 </script>
