@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y70GTP9W0J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-Y70GTP9W0J');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="https://www.cdbustarviejo.com/img/favicon.ico">
@@ -497,6 +489,61 @@ window.location.href=stripeLink+"?"+params.toString();
 
 });
 
+</script>
+
+
+<!-- Consentimiento de cookies: estadísticas solo tras autorización -->
+<style>
+#cd-cookie-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:9998;max-width:920px;margin:0 auto;background:#171717;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:16px 18px;box-shadow:0 12px 36px rgba(0,0,0,.28);font:14px/1.5 Arial,sans-serif}
+#cd-cookie-consent p{margin:0 0 12px}
+#cd-cookie-consent a{color:#ffb15c;text-decoration:underline}
+#cd-cookie-consent .cd-cookie-actions{display:flex;gap:8px;flex-wrap:wrap}
+#cd-cookie-consent button{border:1px solid #f57c00;border-radius:9px;padding:9px 13px;font-weight:700;cursor:pointer}
+#cd-cookie-accept{background:#f57c00;color:#171717}
+#cd-cookie-reject{background:transparent;color:#fff;border-color:#aaa!important}
+#cd-cookie-consent button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media(max-width:600px){#cd-cookie-consent{left:10px;right:10px;bottom:10px;padding:13px;font-size:13px}#cd-cookie-consent .cd-cookie-actions button{flex:1}}
+</style>
+<div id="cd-cookie-consent" role="dialog" aria-live="polite" aria-label="Preferencias de cookies" hidden>
+  <p>Utilizamos cookies técnicas necesarias para que la web funcione. Si lo autorizas, también utilizaremos Google Analytics para obtener estadísticas de uso. Puedes aceptar o rechazar las cookies de análisis. Consulta la <a href="https://www.cdbustarviejo.com/privacidad.html">Política de Privacidad</a>.</p>
+  <div class="cd-cookie-actions">
+    <button type="button" id="cd-cookie-accept">Aceptar estadísticas</button>
+    <button type="button" id="cd-cookie-reject">Rechazar estadísticas</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='cdb_cookie_analytics_consent';
+  var measurementId='G-Y70GTP9W0J';
+  function loadAnalytics(){
+    if(window.__cdAnalyticsLoaded)return;
+    window.__cdAnalyticsLoaded=true;
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){window.dataLayer.push(arguments);};
+    window.gtag('js',new Date());
+    window.gtag('config',measurementId);
+    var s=document.createElement('script');
+    s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+measurementId;
+    document.head.appendChild(s);
+  }
+  function apply(value){
+    try{localStorage.setItem(KEY,value);}catch(e){}
+    var box=document.getElementById('cd-cookie-consent');
+    if(box)box.hidden=true;
+    if(value==='accepted')loadAnalytics();
+  }
+  var saved=null;
+  try{saved=localStorage.getItem(KEY);}catch(e){}
+  if(saved==='accepted'){loadAnalytics();}
+  else if(saved!=='rejected'){
+    var box=document.getElementById('cd-cookie-consent');
+    if(box)box.hidden=false;
+  }
+  document.addEventListener('click',function(e){
+    if(e.target && e.target.id==='cd-cookie-accept')apply('accepted');
+    if(e.target && e.target.id==='cd-cookie-reject')apply('rejected');
+  });
+})();
 </script>
 
 </body>
